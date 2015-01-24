@@ -75,7 +75,7 @@ public class TileManager : MonoBehaviour
 		case Direction.LEFT:
 			targetIndex = (index % width) - 1;
 
-			if(targetIndex > -1) 
+			if(targetIndex > 0) 
 			{
 				if(!tiles[index - 1].IsReserved()) 
 				{
