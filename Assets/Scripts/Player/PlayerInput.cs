@@ -21,7 +21,7 @@ public class PlayerInput : MonoBehaviour {
 	public Tile currentTile;
 	public Tile nextTile;
 	public Vector3 endPos;
-
+	private Direction currentDirection;
 
 	// Use this for initialization
 	void Start () 
@@ -35,6 +35,8 @@ public class PlayerInput : MonoBehaviour {
 		{
 			tileManager = tileHolders.GetComponent<TileManager>();
 		}
+
+		currentDirection = Direction.UP;
 	}
 	
 	// Update is called once per frame	
@@ -75,34 +77,45 @@ public class PlayerInput : MonoBehaviour {
 			if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
 			{
 				nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
-
+				currentDirection = Direction.UP;
 				SetDestinationTile();
 			}
 			
 			if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
 			{
 				nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
-				
+				currentDirection = Direction.DOWN;
 				SetDestinationTile();
 			}
 			
 			if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
 			{
 				nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
-				
+				currentDirection = Direction.LEFT;
 				SetDestinationTile();
 			}
 			
 			if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
 			{
 				nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
-				
+				currentDirection = Direction.RIGHT;
 				SetDestinationTile();
 			}
-			
-			if(Input.GetAxis("Horizontal" + controllerName) != 0 || Input.GetAxis("Vertical" + controllerName) != 0)
+
+			switch(currentDirection)
 			{
-				characterVisual.transform.rotation = Quaternion.LookRotation(new Vector3(Input.GetAxis("Horizontal" + controllerName), 0, Input.GetAxis("Vertical" + controllerName)));
+			case Direction.UP:
+				characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.forward);
+				break;
+			case Direction.DOWN:
+				characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.back);
+				break;
+			case Direction.LEFT:
+				characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.left);
+				break;
+			case Direction.RIGHT:
+				characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.right);
+				break;
 			}
 
 			if(moving)
