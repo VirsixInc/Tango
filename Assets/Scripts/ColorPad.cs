@@ -15,7 +15,7 @@ public class ColorPad : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		color = colors.grey;
+		color = (int)colors.grey;
 	}
 	
 	// Update is called once per frame
@@ -30,7 +30,7 @@ public class ColorPad : MonoBehaviour
 		if(other.gameObject.tag == "Player")
 		{
 			//Switch Colors with the colliding player
-			int t_color = colors[color];
+			//int t_color = (int)colors[color];
 			//color = colors.other.gameObject.GetComponent(Player).color;
 			//other.gameObject.GetComponent(Player).color = colors.t_color;
 		}
@@ -46,7 +46,7 @@ public class ColorPad : MonoBehaviour
 			if(hit.collider.tag == "Player")
 			{
 				//Switch Colors with the colliding player
-				int t_color = colors[color];
+				//int t_color = colors[color];
 				//color = colors[hit.collider.gameObject.GetComponent(Player).color];
 				//hit.collider.gameObject.GetComponent(Player).color = colors[t_color];
 			}
