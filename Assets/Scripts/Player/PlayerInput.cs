@@ -44,80 +44,85 @@ public class PlayerInput : MonoBehaviour {
 		if (currentTile == null)
 		{
 			currentTile = tileManager.GetTileFromIndex(1);
+			this.transform.position = new Vector3(currentTile.GetNodePos().x, this.transform.position.y, currentTile.GetNodePos().z);
 		}
+		else
+		{					
 
-		// Input
-		if(Input.GetButtonDown("Flashlight" + controllerName))
-		{
-			// Toggle flashlight.
-			Debug.Log("B Button Pressed");
-		}
+			// Input
+			if(Input.GetButtonDown("Flashlight" + controllerName))
+			{
+				// Toggle flashlight.
+				Debug.Log("B Button Pressed");
+			}
 
-		if(Input.GetButtonDown("Submit" + controllerName))
-		{
-			// Player selects an object.
-			Debug.Log("A Button Pressed");
-		}
+			if(Input.GetButtonDown("Submit" + controllerName))
+			{
+				// Player selects an object.
+				Debug.Log("A Button Pressed");
+			}
 
-		if(Input.GetButtonDown("Pause" + controllerName))
-		{
-			// Player selects an object.
-			Debug.Log("Pause Button Pressed");
-		}
+			if(Input.GetButtonDown("Pause" + controllerName))
+			{
+				// Player selects an object.
+				Debug.Log("Pause Button Pressed");
+			}
 
-		// Movement
-		if (moving && (transform.position == endPos))
-			moving = false;
-		
-		if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
-		{
-			nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
-
-			SetDestinationTile();
-		}
-		
-		if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
-		{
-			nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
+			// Movement
+			if (moving && (transform.position == endPos))
+				moving = false;
 			
-			SetDestinationTile();
-		}
-		
-		if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
-		{
-			nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
+			if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
+			{
+				nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
+
+				SetDestinationTile();
+			}
 			
-			SetDestinationTile();
-		}
-		
-		if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
-		{
-			nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
+			if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
+			{
+				nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
+				
+				SetDestinationTile();
+			}
 			
-			SetDestinationTile();
+			if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
+			{
+				nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
+				
+				SetDestinationTile();
+			}
+			
+			if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
+			{
+				nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
+				
+				SetDestinationTile();
+			}
+			
+			if(Input.GetAxis("Horizontal" + controllerName) != 0 || Input.GetAxis("Vertical" + controllerName) != 0)
+			{
+				characterVisual.transform.rotation = Quaternion.LookRotation(new Vector3(Input.GetAxis("Horizontal" + controllerName), 0, Input.GetAxis("Vertical" + controllerName)));
+			}
+
+			if(moving)
+			{
+				// find the target position relative to the player:
+				Vector3 dir = endPos - transform.position;
+				// calculate movement at the desired speed:
+				Vector3 movement = dir.normalized * speed * Time.deltaTime;
+				// limit movement to never pass the target position:
+				if (movement.magnitude > dir.magnitude) 
+				{
+					movement = dir;
+					moving = false;
+				}
+
+				//movement.y -= gravity * Time.deltaTime;
+
+				controller.Move(movement);
+			}
 		}
-		
-		if(Input.GetAxis("Horizontal" + controllerName) != 0 || Input.GetAxis("Vertical" + controllerName) != 0)
-		{
-			characterVisual.transform.rotation = Quaternion.LookRotation(new Vector3(Input.GetAxis("Horizontal" + controllerName), 0, Input.GetAxis("Vertical" + controllerName)));
-		}
-		
-
-
-		// find the target position relative to the player:
-		Vector3 dir = endPos - transform.position;
-		// calculate movement at the desired speed:
-		Vector3 movement = dir.normalized * speed * Time.deltaTime;
-		// limit movement to never pass the target position:
-		if (movement.magnitude > dir.magnitude) 
-		{
-			movement = dir;
-			moving = false;
-		}
-
-		//movement.y -= gravity * Time.deltaTime;
-
-		controller.Move(movement);
 	}
 
 	void SetDestinationTile()
