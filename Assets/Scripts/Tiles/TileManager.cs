@@ -21,7 +21,11 @@ public class TileManager : MonoBehaviour
 		for(int i = 0; i < holders.Length; i++) 
 		{
 			int y = (int)char.GetNumericValue(holders[i].name[0]);
-			int x = (int)char.GetNumericValue(holders[i].name[2]);
+			int x;
+			if( holders[i].name.Length > 3 )
+				x = (int)char.GetNumericValue(holders[i].name[3]) + 10;
+			else
+				x = (int)char.GetNumericValue(holders[i].name[2]);
 
 			if(holders[i].transform.childCount == 0) 
 			{
@@ -83,7 +87,7 @@ public class TileManager : MonoBehaviour
 		case Direction.RIGHT:
 			targetIndex = (index % width) + 1;
 
-			if(targetIndex < width - 1) 
+			if(targetIndex < width) 
 			{
 				if(!tiles[index + 1].IsReserved()) 
 				{
