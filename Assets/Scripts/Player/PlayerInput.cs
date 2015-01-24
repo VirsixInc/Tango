@@ -2,7 +2,10 @@
 using System.Collections;
 
 public class PlayerInput : MonoBehaviour {
-	
+
+	public int controllerIndex = 1;
+	public string controllerName;
+
 	CharacterController controller;
 	
 	public float speed = 6.0F;
@@ -18,15 +21,36 @@ public class PlayerInput : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController>();
+
+		controllerName = " Stick " + controllerIndex;
 	}
 	
 	// Update is called once per frame	
 	void Update() 
 	{
+		// Input
+		if(Input.GetButtonDown("Flashlight" + controllerName))
+		{
+			// Toggle flashlight.
+			Debug.Log("B Button Pressed");
+		}
+
+		if(Input.GetButtonDown("Submit" + controllerName))
+		{
+			// Player selects an object.
+			Debug.Log("A Button Pressed");
+		}
+
+		if(Input.GetButtonDown("Pause" + controllerName))
+		{
+			// Player selects an object.
+			Debug.Log("Pause Button Pressed");
+		}
+
 		// Movement
 		if (controller.isGrounded) 
 		{
-			moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+			moveDirection = new Vector3(Input.GetAxis("Horizontal" + controllerName), 0, Input.GetAxis("Vertical" + controllerName));
 			moveDirection = transform.TransformDirection(moveDirection);
 			moveDirection *= speed;
 			
@@ -34,9 +58,9 @@ public class PlayerInput : MonoBehaviour {
 			//moveDirection.y = jumpSpeed;			
 		}
 		
-		if(Input.GetAxis("HorizontalRS") != 0 || Input.GetAxis("VerticalRS") != 0)
+		if(Input.GetAxis("HorizontalRS" + controllerName) != 0 || Input.GetAxis("VerticalRS" + controllerName) != 0)
 		{
-			characterVisual.transform.rotation = Quaternion.LookRotation(new Vector3(Input.GetAxis("HorizontalRS"), 0, Input.GetAxis("VerticalRS")));
+			characterVisual.transform.rotation = Quaternion.LookRotation(new Vector3(Input.GetAxis("HorizontalRS" + controllerName), 0, Input.GetAxis("VerticalRS" + controllerName)));
 		}
 		
 		moveDirection.y -= gravity * Time.deltaTime;
