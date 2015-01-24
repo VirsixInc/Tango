@@ -40,6 +40,12 @@ public class PlayerInput : MonoBehaviour {
 	// Update is called once per frame	
 	void Update() 
 	{
+		// Debug
+		if (currentTile == null)
+		{
+			currentTile = tileManager.GetTileFromIndex(1);
+		}
+
 		// Input
 		if(Input.GetButtonDown("Flashlight" + controllerName))
 		{
@@ -98,9 +104,9 @@ public class PlayerInput : MonoBehaviour {
 			//transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * speed);		
 		}
 		
-		if(Input.GetAxis("HorizontalRS" + controllerName) != 0 || Input.GetAxis("VerticalRS" + controllerName) != 0)
+		if(Input.GetAxis("Horizontal" + controllerName) != 0 || Input.GetAxis("Vertical" + controllerName) != 0)
 		{
-			characterVisual.transform.rotation = Quaternion.LookRotation(new Vector3(Input.GetAxis("HorizontalRS" + controllerName), 0, Input.GetAxis("VerticalRS" + controllerName)));
+			characterVisual.transform.rotation = Quaternion.LookRotation(new Vector3(Input.GetAxis("Horizontal" + controllerName), 0, Input.GetAxis("Vertical" + controllerName)));
 		}
 		
 
@@ -116,7 +122,7 @@ public class PlayerInput : MonoBehaviour {
 			moving = false;
 		}
 
-		movement.y -= gravity * Time.deltaTime;
+		//movement.y -= gravity * Time.deltaTime;
 
 		controller.Move(movement);
 	}
