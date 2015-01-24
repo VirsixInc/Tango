@@ -13,7 +13,7 @@ public class CharacterMovement : MonoBehaviour {
 	public float gravity = 20.0F;
 	private Vector3 moveDirection = Vector3.zero;
 
-	public GameObject visual;
+	public GameObject characterVisual;
 
 	// Use this for initialization
 	void Start () {
@@ -34,9 +34,9 @@ public class CharacterMovement : MonoBehaviour {
 			
 		}
 
-		if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+		if(Input.GetAxis("HorizontalRS") != 0 || Input.GetAxis("VerticalRS") != 0)
 		{
-			visual.transform.rotation = Quaternion.LookRotation(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")));
+			characterVisual.transform.rotation = Quaternion.LookRotation(new Vector3(Input.GetAxis("HorizontalRS"), 0, Input.GetAxis("VerticalRS")));
 		}
 
 		moveDirection.y -= gravity * Time.deltaTime;
