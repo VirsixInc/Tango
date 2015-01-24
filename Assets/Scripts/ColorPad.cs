@@ -6,7 +6,7 @@ public class ColorPad : MonoBehaviour
 	public enum pColor
 	{
 		grey = 0,
-		blue = 1,			
+		blue = 1,
 		red = 2
 	}
 
@@ -22,6 +22,7 @@ public class ColorPad : MonoBehaviour
 	void Update () 
 	{
 		ForceMissingColor ();
+		SetMaterialColor ();
 	}
 
 	void OnCollisionEnter(Collision other)
@@ -73,6 +74,16 @@ public class ColorPad : MonoBehaviour
 				color = pColor.red;
 		}
 		*/
+	}
+
+	void SetMaterialColor()
+	{
+		if (color == pColor.blue)
+			renderer.material.color = Color.blue;
+		else if (color == pColor.red)
+			renderer.material.color = Color.red;
+		else
+			renderer.material.color = Color.white;
 	}
 
 }
