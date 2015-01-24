@@ -30,8 +30,7 @@ public class CharacterMovement : MonoBehaviour {
 			moveDirection *= speed;
 
 			//if (Input.GetButton("Jump"))
-				//moveDirection.y = jumpSpeed;
-			
+				//moveDirection.y = jumpSpeed;			
 		}
 
 		if(Input.GetAxis("HorizontalRS") != 0 || Input.GetAxis("VerticalRS") != 0)
