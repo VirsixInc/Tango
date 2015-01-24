@@ -52,7 +52,7 @@ public class TileManager : MonoBehaviour
 			targetIndex = index - width;
 
 			if(targetIndex > 0) {
-				if(tiles[targetIndex].IsReserved()) {
+				if(!tiles[targetIndex].IsReserved()) {
 					tiles[targetIndex].ReserveNode(true);
 					return tiles[targetIndex];
 				}
@@ -62,7 +62,7 @@ public class TileManager : MonoBehaviour
 			targetIndex = index + width;
 
 			if(targetIndex < (width * height) - 1) {
-				if(tiles[targetIndex].IsReserved()) {
+				if(!tiles[targetIndex].IsReserved()) {
 					tiles[targetIndex].ReserveNode(true);
 					return tiles[targetIndex];
 				}
@@ -71,20 +71,24 @@ public class TileManager : MonoBehaviour
 		case Direction.LEFT:
 			targetIndex = (index % width) - 1;
 
-			if(targetIndex > 0) {
-				if(tiles[targetIndex].IsReserved()) {
-					tiles[targetIndex].ReserveNode(true);
-					return tiles[targetIndex];
+			if(targetIndex > 0) 
+			{
+				if(!tiles[index - 1].IsReserved()) 
+				{
+					tiles[index - 1].ReserveNode(true);
+					return tiles[index - 1];
 				}
 			}
 			break;
 		case Direction.RIGHT:
 			targetIndex = (index % width) + 1;
 
-			if(targetIndex < width - 1) {
-				if(tiles[targetIndex].IsReserved()) {
-					tiles[targetIndex].ReserveNode(true);
-					return tiles[targetIndex];
+			if(targetIndex < width - 1) 
+			{
+				if(!tiles[index + 1].IsReserved()) 
+				{
+					tiles[index + 1].ReserveNode(true);
+					return tiles[index + 1];
 				}
 			}
 			break;
@@ -101,5 +105,9 @@ public class TileManager : MonoBehaviour
 				return i;
 		}
 		return -1;
+	}
+
+	public Tile GetTileFromIndex(int index) {
+		return tiles[index];
 	}
 }
