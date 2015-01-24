@@ -5,11 +5,13 @@ public class Tile : MonoBehaviour
 {
 	public GameObject node;
 
+	public bool passable;
+
 	bool reserved;
 
 	void Awake() 
 	{
-		reserved = false;
+		reserved = !passable;
 	}
 
 	public bool IsReserved()
@@ -19,7 +21,8 @@ public class Tile : MonoBehaviour
 
 	public void ReserveNode( bool reserve )
 	{
-		reserved = reserve;
+		if(passable)
+			reserved = reserve;
 	}
 
 	public Vector3 GetNodePos()
