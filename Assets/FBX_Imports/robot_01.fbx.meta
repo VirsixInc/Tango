@@ -1,0 +1,410 @@
+fileFormatVersion: 2
+guid: 3d6ae3921d874e940981f1f66d8a9d8a
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: body
+    100002: ikHandle1
+    100004: ikHandle2
+    100006: ikHandle3
+    100008: ikHandle4
+    100010: l_bigclaw
+    100012: l_claw_Ctrl
+    100014: l_elbow
+    100016: l_end
+    100018: l_pivot
+    100020: l_poleVector
+    100022: l_smallclaw
+    100024: l_wrist
+    100026: main_Anim
+    100028: r_bigclaw
+    100030: r_claw_Ctrl
+    100032: r_elbow
+    100034: r_end
+    100036: r_pivot
+    100038: r_poleVector
+    100040: r_smallclaw
+    100042: r_wrist
+    100044: //RootNode
+    100046: robot_GEO
+    400000: body
+    400002: ikHandle1
+    400004: ikHandle2
+    400006: ikHandle3
+    400008: ikHandle4
+    400010: l_bigclaw
+    400012: l_claw_Ctrl
+    400014: l_elbow
+    400016: l_end
+    400018: l_pivot
+    400020: l_poleVector
+    400022: l_smallclaw
+    400024: l_wrist
+    400026: main_Anim
+    400028: r_bigclaw
+    400030: r_claw_Ctrl
+    400032: r_elbow
+    400034: r_end
+    400036: r_pivot
+    400038: r_poleVector
+    400040: r_smallclaw
+    400042: r_wrist
+    400044: //RootNode
+    400046: robot_GEO
+    4300000: robot_GEO
+    7400000: Robo_Idle
+    7400002: Robo_Grabbing
+    7400004: Robo_Holding
+    7400006: Robo_LetGo
+    9500000: //RootNode
+    13700000: robot_GEO
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Robo_Idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 290
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: body
+        weight: 1
+      - path: body/l_pivot
+        weight: 1
+      - path: body/l_pivot/l_elbow
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_bigclaw
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_end
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_smallclaw
+        weight: 1
+      - path: body/r_pivot
+        weight: 1
+      - path: body/r_pivot/r_elbow
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_bigclaw
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_end
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_smallclaw
+        weight: 1
+      - path: main_Anim
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl/ikHandle3
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl/ikHandle4
+        weight: 1
+      - path: main_Anim/l_poleVector
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl/ikHandle1
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl/ikHandle2
+        weight: 1
+      - path: main_Anim/r_poleVector
+        weight: 1
+      - path: robot_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Robo_Grabbing
+      takeName: Take 001
+      firstFrame: 291
+      lastFrame: 332
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: body
+        weight: 1
+      - path: body/l_pivot
+        weight: 1
+      - path: body/l_pivot/l_elbow
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_bigclaw
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_end
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_smallclaw
+        weight: 1
+      - path: body/r_pivot
+        weight: 1
+      - path: body/r_pivot/r_elbow
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_bigclaw
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_end
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_smallclaw
+        weight: 1
+      - path: main_Anim
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl/ikHandle3
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl/ikHandle4
+        weight: 1
+      - path: main_Anim/l_poleVector
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl/ikHandle1
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl/ikHandle2
+        weight: 1
+      - path: main_Anim/r_poleVector
+        weight: 1
+      - path: robot_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Robo_Holding
+      takeName: Take 001
+      firstFrame: 333
+      lastFrame: 333.100006
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: body
+        weight: 1
+      - path: body/l_pivot
+        weight: 1
+      - path: body/l_pivot/l_elbow
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_bigclaw
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_end
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_smallclaw
+        weight: 1
+      - path: body/r_pivot
+        weight: 1
+      - path: body/r_pivot/r_elbow
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_bigclaw
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_end
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_smallclaw
+        weight: 1
+      - path: main_Anim
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl/ikHandle3
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl/ikHandle4
+        weight: 1
+      - path: main_Anim/l_poleVector
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl/ikHandle1
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl/ikHandle2
+        weight: 1
+      - path: main_Anim/r_poleVector
+        weight: 1
+      - path: robot_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Robo_LetGo
+      takeName: Take 001
+      firstFrame: 333
+      lastFrame: 370
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: body
+        weight: 1
+      - path: body/l_pivot
+        weight: 1
+      - path: body/l_pivot/l_elbow
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_bigclaw
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_end
+        weight: 1
+      - path: body/l_pivot/l_elbow/l_wrist/l_smallclaw
+        weight: 1
+      - path: body/r_pivot
+        weight: 1
+      - path: body/r_pivot/r_elbow
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_bigclaw
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_end
+        weight: 1
+      - path: body/r_pivot/r_elbow/r_wrist/r_smallclaw
+        weight: 1
+      - path: main_Anim
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl/ikHandle3
+        weight: 1
+      - path: main_Anim/l_claw_Ctrl/ikHandle4
+        weight: 1
+      - path: main_Anim/l_poleVector
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl/ikHandle1
+        weight: 1
+      - path: main_Anim/r_claw_Ctrl/ikHandle2
+        weight: 1
+      - path: main_Anim/r_poleVector
+        weight: 1
+      - path: robot_GEO
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .300000012
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
