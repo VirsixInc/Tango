@@ -7,6 +7,8 @@ public class Tile : MonoBehaviour
 
 	public bool passable;
 
+	GameObject objectOnTile;
+
 	bool reserved;
 
 	void Awake() 
@@ -28,5 +30,15 @@ public class Tile : MonoBehaviour
 	public Vector3 GetNodePos()
 	{
 		return node.transform.position;
+	}
+
+	public void SetObject( GameObject obj )
+	{
+		objectOnTile = obj;
+	}
+
+	public GameObject GetObjectOnTile()
+	{
+		return objectOnTile;
 	}
 }

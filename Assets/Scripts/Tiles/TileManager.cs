@@ -51,12 +51,15 @@ public class TileManager : MonoBehaviour
 	{
 		int index = GetIndex(tile);
 		int targetIndex = 0;
-		switch(direction) {
+		switch(direction) 
+		{
 		case Direction.UP:
 			targetIndex = index - width;
 
-			if(targetIndex > 0) {
-				if(!tiles[targetIndex].IsReserved()) {
+			if(targetIndex > 0) 
+			{
+				if(!tiles[targetIndex].IsReserved()) 
+				{
 					tiles[targetIndex].ReserveNode(true);
 					return tiles[targetIndex];
 				}
@@ -65,8 +68,10 @@ public class TileManager : MonoBehaviour
 		case Direction.DOWN:
 			targetIndex = index + width;
 
-			if(targetIndex < (width * height) - 1) {
-				if(!tiles[targetIndex].IsReserved()) {
+			if(targetIndex < (width * height) - 1) 
+			{
+				if(!tiles[targetIndex].IsReserved()) 
+				{
 					tiles[targetIndex].ReserveNode(true);
 					return tiles[targetIndex];
 				}
@@ -103,15 +108,63 @@ public class TileManager : MonoBehaviour
 		return null;
 	}
 
-	int GetIndex(Tile tile) {
-		for(int i = 0; i < tiles.Length; i++) {
+	public GameObject GrabObjectAtTile( Tile tile, Direction direction )
+	{
+		int index = GetIndex(tile);
+		int targetIndex = 0;
+		switch(direction) 
+		{
+		case Direction.UP:
+			targetIndex = index - width;
+			
+			if(targetIndex > 0) 
+			{
+				return tiles[targetIndex].GetObjectOnTile();
+			}
+			break;
+		case Direction.DOWN:
+			targetIndex = index + width;
+			
+			if(targetIndex < (width * height) - 1) 
+			{
+				return tiles[targetIndex].GetObjectOnTile();
+			}
+			break;
+		case Direction.LEFT:
+			targetIndex = (index % width) - 1;
+			
+			if(targetIndex > -1) 
+			{
+				return tiles[index - 1].GetObjectOnTile();
+			}
+			break;
+		case Direction.RIGHT:
+			targetIndex = (index % width) + 1;
+			
+			if(targetIndex < width) 
+			{
+				return tiles[index + 1].GetObjectOnTile();
+			}
+			break;
+		default:
+			return null;
+			break;
+		}
+		return null;
+	}
+
+	int GetIndex(Tile tile) 
+	{
+		for(int i = 0; i < tiles.Length; i++) 
+		{
 			if(tile == tiles[i])
 				return i;
 		}
 		return -1;
 	}
 
-	public Tile GetTileFromIndex(int index) {
+	public Tile GetTileFromIndex(int index) 
+	{
 		return tiles[index];
 	}
 }
