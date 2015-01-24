@@ -23,6 +23,10 @@ public class PlayerInput : MonoBehaviour {
 	public Vector3 endPos;
 	private Direction currentDirection;
 
+	// Grabbing a box
+	private bool isGrabbing;
+
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -37,6 +41,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 
 		currentDirection = Direction.UP;
+		isGrabbing = false;
 	}
 	
 	// Update is called once per frame	
@@ -62,6 +67,12 @@ public class PlayerInput : MonoBehaviour {
 			{
 				// Player selects an object.
 				Debug.Log("A Button Pressed");
+				isGrabbing = true;
+			}
+			else if(Input.GetButtonUp("Submit" + controllerName))
+			{
+				Debug.Log("A Button Released");
+				isGrabbing = false;
 			}
 
 			if(Input.GetButtonDown("Pause" + controllerName))
@@ -73,35 +84,68 @@ public class PlayerInput : MonoBehaviour {
 			// Movement
 			if (moving && (transform.position == endPos))
 				moving = false;
-			
-			if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
-			{
-				nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
-				currentDirection = Direction.UP;
-				SetDestinationTile();
-			}
-			
-			if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
-			{
-				nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
-				currentDirection = Direction.DOWN;
-				SetDestinationTile();
-			}
-			
-			if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
-			{
-				nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
-				currentDirection = Direction.LEFT;
-				SetDestinationTile();
-			}
-			
-			if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
-			{
-				nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
-				currentDirection = Direction.RIGHT;
-				SetDestinationTile();
-			}
 
+			if(isGrabbing)
+			{
+				if(currentDirection == Direction.UP || currentDirection == Direction.DOWN)
+				{
+					if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
+					{
+						nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
+						SetDestinationTile();
+					}
+					
+					if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
+					{
+						nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
+						SetDestinationTile();
+					}
+				}
+				else if(currentDirection == Direction.LEFT || currentDirection == Direction.RIGHT)
+				{
+					if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
+					{
+						nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
+						SetDestinationTile();
+					}
+					
+					if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
+					{
+						nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
+						SetDestinationTile();
+					}
+				}
+			}
+			else
+			{
+				if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
+				{
+					nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
+					currentDirection = Direction.UP;
+					SetDestinationTile();
+				}
+				
+				if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
+				{
+					nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
+					currentDirection = Direction.DOWN;
+					SetDestinationTile();
+				}
+				
+				if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
+				{
+					nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
+					currentDirection = Direction.LEFT;
+					SetDestinationTile();
+				}
+				
+				if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
+				{
+					nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
+					currentDirection = Direction.RIGHT;
+					SetDestinationTile();
+				}
+			}
 			switch(currentDirection)
 			{
 			case Direction.UP:
