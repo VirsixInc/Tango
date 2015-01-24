@@ -66,42 +66,35 @@ public class PlayerInput : MonoBehaviour {
 		}
 
 		// Movement
-		if (controller.isGrounded) 
+		if (moving && (transform.position == endPos))
+			moving = false;
+		
+		if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
 		{
-			//moveDirection = new Vector3(, 0, Input.GetAxis("Vertical" + controllerName));
+			nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
 
-			if (moving && (transform.position == endPos))
-				moving = false;
+			SetDestinationTile();
+		}
+		
+		if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
+		{
+			nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
 			
-			if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
-			{
-				nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
-
-				SetDestinationTile();
-			}
+			SetDestinationTile();
+		}
+		
+		if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
+		{
+			nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
 			
-			if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
-			{
-				nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
-				
-				SetDestinationTile();
-			}
+			SetDestinationTile();
+		}
+		
+		if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
+		{
+			nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
 			
-			if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
-			{
-				nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
-				
-				SetDestinationTile();
-			}
-			
-			if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
-			{
-				nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
-				
-				SetDestinationTile();
-			}
-			
-			//transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * speed);		
+			SetDestinationTile();
 		}
 		
 		if(Input.GetAxis("Horizontal" + controllerName) != 0 || Input.GetAxis("Vertical" + controllerName) != 0)
