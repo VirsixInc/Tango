@@ -71,20 +71,24 @@ public class TileManager : MonoBehaviour
 		case Direction.LEFT:
 			targetIndex = (index % width) - 1;
 
-			if(targetIndex > 0) {
-				if(!tiles[targetIndex].IsReserved()) {
-					tiles[targetIndex].ReserveNode(true);
-					return tiles[targetIndex];
+			if(targetIndex > 0) 
+			{
+				if(!tiles[index - 1].IsReserved()) 
+				{
+					tiles[index - 1].ReserveNode(true);
+					return tiles[index - 1];
 				}
 			}
 			break;
 		case Direction.RIGHT:
 			targetIndex = (index % width) + 1;
 
-			if(targetIndex < width - 1) {
-				if(!tiles[targetIndex].IsReserved()) {
-					tiles[targetIndex].ReserveNode(true);
-					return tiles[targetIndex];
+			if(targetIndex < width - 1) 
+			{
+				if(!tiles[index + 1].IsReserved()) 
+				{
+					tiles[index + 1].ReserveNode(true);
+					return tiles[index + 1];
 				}
 			}
 			break;
