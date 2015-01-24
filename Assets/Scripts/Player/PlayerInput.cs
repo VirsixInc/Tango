@@ -10,19 +10,31 @@ public class PlayerInput : MonoBehaviour {
 	
 	public float speed = 6.0F;
 	
-	// No jumping for now, keeping this just in case.
-	//public float jumpSpeed = 8.0F;
-	
 	public float gravity = 20.0F;
-	private Vector3 moveDirection = Vector3.zero;
+	//private Vector3 moveDirection = Vector3.zero;
 	
 	public GameObject characterVisual;
-	
+
+	// Grid Movement
+	private bool moving;
+	private TileManager tileManager;
+	public Tile currentTile;
+	public Tile nextTile;
+	public Vector3 endPos;
+
+
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		controller = GetComponent<CharacterController>();
 
 		controllerName = " Stick " + controllerIndex;
+
+		GameObject tileHolders = GameObject.Find("Tile Holders");
+		if(tileHolders != null)
+		{
+			tileManager = tileHolders.GetComponent<TileManager>();
+		}
 	}
 	
 	// Update is called once per frame	
@@ -50,12 +62,40 @@ public class PlayerInput : MonoBehaviour {
 		// Movement
 		if (controller.isGrounded) 
 		{
-			moveDirection = new Vector3(Input.GetAxis("Horizontal" + controllerName), 0, Input.GetAxis("Vertical" + controllerName));
-			moveDirection = transform.TransformDirection(moveDirection);
-			moveDirection *= speed;
+			//moveDirection = new Vector3(, 0, Input.GetAxis("Vertical" + controllerName));
+
+			if (moving && (transform.position == endPos))
+				moving = false;
 			
-			//if (Input.GetButton("Jump"))
-			//moveDirection.y = jumpSpeed;			
+			if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
+			{
+				nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
+
+				SetDestinationTile();
+			}
+			
+			if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
+			{
+				nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
+				
+				SetDestinationTile();
+			}
+			
+			if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
+			{
+				nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
+				
+				SetDestinationTile();
+			}
+			
+			if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
+			{
+				nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
+				
+				SetDestinationTile();
+			}
+			
+			//transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * speed);		
 		}
 		
 		if(Input.GetAxis("HorizontalRS" + controllerName) != 0 || Input.GetAxis("VerticalRS" + controllerName) != 0)
@@ -63,7 +103,32 @@ public class PlayerInput : MonoBehaviour {
 			characterVisual.transform.rotation = Quaternion.LookRotation(new Vector3(Input.GetAxis("HorizontalRS" + controllerName), 0, Input.GetAxis("VerticalRS" + controllerName)));
 		}
 		
-		moveDirection.y -= gravity * Time.deltaTime;
-		controller.Move(moveDirection * Time.deltaTime);
+
+
+		// find the target position relative to the player:
+		Vector3 dir = endPos - transform.position;
+		// calculate movement at the desired speed:
+		Vector3 movement = dir.normalized * speed * Time.deltaTime;
+		// limit movement to never pass the target position:
+		if (movement.magnitude > dir.magnitude) 
+		{
+			movement = dir;
+			moving = false;
+		}
+
+		movement.y -= gravity * Time.deltaTime;
+
+		controller.Move(movement);
+	}
+
+	void SetDestinationTile()
+	{
+		if (nextTile != null && currentTile != nextTile)
+		{
+			currentTile.ReserveNode(false);
+			currentTile = nextTile;
+			moving = true;
+			endPos = nextTile.GetNodePos();
+		}
 	}
 }

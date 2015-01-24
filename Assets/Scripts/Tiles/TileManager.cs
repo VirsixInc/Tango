@@ -52,7 +52,7 @@ public class TileManager : MonoBehaviour
 			targetIndex = index - width;
 
 			if(targetIndex > 0) {
-				if(tiles[targetIndex].IsReserved()) {
+				if(!tiles[targetIndex].IsReserved()) {
 					tiles[targetIndex].ReserveNode(true);
 					return tiles[targetIndex];
 				}
@@ -62,7 +62,7 @@ public class TileManager : MonoBehaviour
 			targetIndex = index + width;
 
 			if(targetIndex < (width * height) - 1) {
-				if(tiles[targetIndex].IsReserved()) {
+				if(!tiles[targetIndex].IsReserved()) {
 					tiles[targetIndex].ReserveNode(true);
 					return tiles[targetIndex];
 				}
@@ -72,7 +72,7 @@ public class TileManager : MonoBehaviour
 			targetIndex = (index % width) - 1;
 
 			if(targetIndex > 0) {
-				if(tiles[targetIndex].IsReserved()) {
+				if(!tiles[targetIndex].IsReserved()) {
 					tiles[targetIndex].ReserveNode(true);
 					return tiles[targetIndex];
 				}
@@ -82,7 +82,7 @@ public class TileManager : MonoBehaviour
 			targetIndex = (index % width) + 1;
 
 			if(targetIndex < width - 1) {
-				if(tiles[targetIndex].IsReserved()) {
+				if(!tiles[targetIndex].IsReserved()) {
 					tiles[targetIndex].ReserveNode(true);
 					return tiles[targetIndex];
 				}
@@ -101,5 +101,9 @@ public class TileManager : MonoBehaviour
 				return i;
 		}
 		return -1;
+	}
+
+	public Tile GetTileFromIndex(int index) {
+		return tiles[index];
 	}
 }
