@@ -173,7 +173,8 @@ public class TileManager : MonoBehaviour
 	{
 		foreach( Tile tile in tiles )
 		{
-			if( tile.transform.position.x == pos.x && tile.transform.position.z == pos.z )
+			if( pos.x >= tile.transform.position.x - 0.2f && pos.x <= tile.transform.position.x + 0.2f
+			   && pos.z >= tile.transform.position.z - 0.2f && pos.z <= tile.transform.position.z + 0.2f )
 			{
 				return tile;
 			}
