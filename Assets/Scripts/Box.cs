@@ -52,7 +52,7 @@ public class Box : MonoBehaviour {
 		}
 	}
 
-	void FallIntoHole() 
+	public void FallIntoHole() 
 	{
 		StartCoroutine( DropAndDie() );
 	}
