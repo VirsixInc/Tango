@@ -110,12 +110,6 @@ public class PlayerInput : MonoBehaviour {
 			grabbedBoxComponent = null;
 		}
 
-		if(Input.GetButtonDown("Pause" + controllerName))
-		{
-			// Player selects an object.
-			Debug.Log("Pause Button Pressed");
-		}
-
 		// Movement
 		if (moving && (transform.position == endPos))
 			moving = false;

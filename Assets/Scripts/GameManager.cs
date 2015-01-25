@@ -82,12 +82,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (Application.loadedLevelName != "MainMenu" && Application.loadedLevelName != "Ending") {
 			if(Input.GetButtonDown("Pause Stick 1") || Input.GetButtonDown("Pause Stick 2")) {
-				paused = !paused;
 				TogglePauseMenu();
-				if(paused)
-					Time.timeScale = 0f;
-				else
-					Time.timeScale = 1f;
 			}
 		}
 	}
@@ -120,11 +115,18 @@ public class GameManager : MonoBehaviour {
 	public void TogglePauseMenu() {
 		if(pauseMenu.gameObject.activeSelf) {
 			pauseMenu.SetActive (false);
+			paused = false;
 //			EventSystem.current.SetSelectedGameObject (mainCanvas.transform.FindChild ("StartGame").gameObject);
 		} else {
  			pauseMenu.SetActive(true);
+			paused = true;
 			eventSystem.SetSelectedGameObject (pauseMenu.transform.FindChild ("Resume").gameObject);
 		}
+
+		if(paused)
+			Time.timeScale = 0f;
+		else
+			Time.timeScale = 1f;
 	}
 
 	public delegate void ActionDelegate();
