@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour {
 		if(redTeleportOn && blueTeleportOn) {
 			NextLevel();
 		}
+
+		print (color.ToString () + " on!");
 	}
 
 	public static void TeleporterOff(ColorComponent.pColor color) {
@@ -87,6 +89,7 @@ public class GameManager : MonoBehaviour {
 		} else if(color == ColorComponent.pColor.blue) {
 			blueTeleportOn = false;
 		}
+		print (color.ToString () + " off!");
 	}
 
 //	void Teleporter() {

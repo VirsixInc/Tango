@@ -11,12 +11,13 @@ public class Tile : MonoBehaviour
 
 	GameObject objectOnTile;
 
-	public TileObject tileObject;
+	TileObject tileObject;
 
 	bool reserved;
 
 	void Awake() 
 	{
+		tileObject = GetComponentInChildren<TileObject> ();
 		reserved = !passable;
 	}
 
@@ -49,6 +50,7 @@ public class Tile : MonoBehaviour
 
 			passable = true;
 			canBeBridged = false;
+			reserved = false;
 			//TODO swap texture
 		}
 		else

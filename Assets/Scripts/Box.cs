@@ -48,7 +48,10 @@ public class Box : MonoBehaviour {
 			transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * pushSpeed);
 			
 			if(transform.position == endPos)
+			{
+				currentTile.SetObject(this.gameObject);
 				moving = false;
+			}
 		}
 	}
 
@@ -79,7 +82,7 @@ public class Box : MonoBehaviour {
 	{
 		if(!moving)
 		{
-			nextTile = tileManager.MoveToTile(currentTile, dir, GetComponent<ColorComponent>().currentColor);
+			nextTile = tileManager.MoveObjectToTile(currentTile, dir, GetComponent<ColorComponent>().currentColor);
 			//currentDirection = Direction.UP;
 			return SetDestinationTile();
 		}
@@ -94,7 +97,7 @@ public class Box : MonoBehaviour {
 			currentTile.ReserveNode(false, true);
 			currentTile.SetObject(null);
 			currentTile = nextTile;
-			currentTile.SetObject(this.gameObject);
+			//currentTile.SetObject(this.gameObject);
 			moving = true;
 			endPos = nextTile.GetNodePos();
 			
