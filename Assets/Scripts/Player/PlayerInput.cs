@@ -51,7 +51,7 @@ public class PlayerInput : MonoBehaviour {
 
 		if (currentTile == null)
 		{
-			currentTile = tileManager.GetTileFromIndex(1);
+			currentTile = tileManager.GetTileAtPosition(transform.position);
 			transform.position = new Vector3(currentTile.GetNodePos().x, transform.position.y, currentTile.GetNodePos().z);
 		}
 	}
