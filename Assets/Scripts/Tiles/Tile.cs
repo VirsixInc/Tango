@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
 
 	TileObject tileObject;
 
-	bool reserved;
+	public bool reserved;
 
 	void Awake() 
 	{
