@@ -16,7 +16,7 @@ public class ColorComponent : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		//SetMaterialColor();
+		SetMaterialColor();
 	}
 	
 	// Update is called once per frame
@@ -32,24 +32,39 @@ public class ColorComponent : MonoBehaviour
 	
 	void SetMaterialColor()
 	{
-		if (currentColor == pColor.blue)
-		{
-			renderer.material.color = Color.blue;
+		SendMessage ("ChangeColor", currentColor, SendMessageOptions.RequireReceiver);
 
-			renderer.material.SetColor("_MainColor", Color.blue);
-		}
-		else if (currentColor == pColor.red)
-		{
-			renderer.material.color = Color.red;
+//		Renderer[] renderers = GetComponentsInChildren<Renderer> ();
+//
+//		foreach(Renderer rend in renderers) {
+//			if (currentColor == pColor.blue) {
+//				rend.material.color = Color.blue;
+//				rend.material.SetColor("_MainColor", Color.blue);
+//			} else if(currentColor == pColor.red) {
+//				rend.material.color = Color.red;
+//			} else if(currentColor == pColor.grey) {
+//				rend.material.color = Color.gray;
+//			}
+//		}
 
-			renderer.material.SetColor("_MainColor", Color.red);
-		}
-		else
-		{
-			renderer.material.color = Color.white;
-
-			renderer.material.SetColor("_MainColor", Color.white);
-		}
+//		if (currentColor == pColor.blue)
+//		{
+//			renderer.material.color = Color.blue;
+//
+//			renderer.material.SetColor("_MainColor", Color.blue);
+//		}
+//		else if (currentColor == pColor.red)
+//		{
+//			renderer.material.color = Color.red;
+//
+//			renderer.material.SetColor("_MainColor", Color.red);
+//		}
+//		else
+//		{
+//			renderer.material.color = Color.white;
+//
+//			renderer.material.SetColor("_MainColor", Color.white);
+//		}
 	}
 
 	bool IsSameColor(pColor color)

@@ -48,142 +48,154 @@ public class PlayerInput : MonoBehaviour {
 		isGrabbing = false;
 
 		color = gameObject.GetComponent<ColorComponent>().currentColor;
+
+		if (currentTile == null)
+		{
+			currentTile = tileManager.GetTileAtPosition(new Vector3(transform.position.x, 0.5f, transform.position.z));
+			transform.position = new Vector3(currentTile.GetNodePos().x, transform.position.y, currentTile.GetNodePos().z);
+		}
 	}
 	
 	// Update is called once per frame	
 	void Update() 
-	{
-		// Debug
-		if (currentTile == null)
+	{					
+		// Input
+		if(Input.GetButtonDown("Flashlight" + controllerName))
 		{
-			currentTile = tileManager.GetTileFromIndex(1);
-			this.transform.position = new Vector3(currentTile.GetNodePos().x, this.transform.position.y, currentTile.GetNodePos().z);
+			// Toggle flashlight.
+			Debug.Log("B Button Pressed");
 		}
-		else
-		{					
 
-			// Input
-			if(Input.GetButtonDown("Flashlight" + controllerName))
-			{
-				// Toggle flashlight.
-				Debug.Log("B Button Pressed");
-			}
+		if(Input.GetButtonDown("Submit" + controllerName))
+		{
+			// Player selects an object.
+			Debug.Log("A Button Pressed");
+			isGrabbing = true;
+		}
+		else if(Input.GetButtonUp("Submit" + controllerName))
+		{
+			Debug.Log("A Button Released");
+			isGrabbing = false;
+		}
 
-			if(Input.GetButtonDown("Submit" + controllerName))
-			{
-				// Player selects an object.
-				Debug.Log("A Button Pressed");
-				isGrabbing = true;
-			}
-			else if(Input.GetButtonUp("Submit" + controllerName))
-			{
-				Debug.Log("A Button Released");
-				isGrabbing = false;
-			}
+		if(Input.GetButtonDown("Pause" + controllerName))
+		{
+			// Player selects an object.
+			Debug.Log("Pause Button Pressed");
+		}
 
-			if(Input.GetButtonDown("Pause" + controllerName))
-			{
-				// Player selects an object.
-				Debug.Log("Pause Button Pressed");
-			}
+		// Movement
+		if (moving && (transform.position == endPos))
+			moving = false;
 
-			// Movement
-			if (moving && (transform.position == endPos))
-				moving = false;
-
-			if(isGrabbing)
-			{
-				if(currentDirection == Direction.UP || currentDirection == Direction.DOWN)
-				{
-					if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
-					{
-						nextTile = tileManager.MoveToTile(currentTile, Direction.UP, color);
-						SetDestinationTile();
-					}
-					
-					if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
-					{
-						nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN, color);
-						SetDestinationTile();
-					}
-				}
-				else if(currentDirection == Direction.LEFT || currentDirection == Direction.RIGHT)
-				{
-					if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
-					{
-						nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT, color);
-						SetDestinationTile();
-					}
-					
-					if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
-					{
-						nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT, color);
-						SetDestinationTile();
-					}
-				}
-			}
-			else
+		if(isGrabbing)
+		{
+			if(currentDirection == Direction.UP || currentDirection == Direction.DOWN)
 			{
 				if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
 				{
 					nextTile = tileManager.MoveToTile(currentTile, Direction.UP, color);
-					currentDirection = Direction.UP;
 					SetDestinationTile();
 				}
 				
 				if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
 				{
 					nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN, color);
-					currentDirection = Direction.DOWN;
 					SetDestinationTile();
 				}
-				
+			}
+			else if(currentDirection == Direction.LEFT || currentDirection == Direction.RIGHT)
+			{
 				if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
 				{
 					nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT, color);
-					currentDirection = Direction.LEFT;
 					SetDestinationTile();
 				}
 				
 				if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
 				{
 					nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT, color);
-					currentDirection = Direction.RIGHT;
 					SetDestinationTile();
 				}
 			}
-			switch(currentDirection)
+		}
+		else
+		{
+			if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
 			{
-			case Direction.UP:
-				characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.forward);
-				break;
-			case Direction.DOWN:
-				characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.back);
-				break;
-			case Direction.LEFT:
-				characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.left);
-				break;
-			case Direction.RIGHT:
-				characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.right);
-				break;
+				nextTile = tileManager.MoveToTile(currentTile, Direction.UP, color);
+				currentDirection = Direction.UP;
+				SetDestinationTile();
+			}
+			
+			if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
+			{
+				nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN, color);
+				currentDirection = Direction.DOWN;
+				SetDestinationTile();
+			}
+			
+			if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
+			{
+				nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT, color);
+				currentDirection = Direction.LEFT;
+				SetDestinationTile();
+			}
+			
+			if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
+			{
+				nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT, color);
+				currentDirection = Direction.RIGHT;
+				SetDestinationTile();
+			}
+		}
+		switch(currentDirection)
+		{
+		case Direction.UP:
+			characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.forward);
+			break;
+		case Direction.DOWN:
+			characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.back);
+			break;
+		case Direction.LEFT:
+			characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.left);
+			break;
+		case Direction.RIGHT:
+			characterVisual.transform.rotation = Quaternion.LookRotation(Vector3.right);
+			break;
+		}
+
+		if(moving)
+		{
+			// find the target position relative to the player:
+			Vector3 dir = endPos - transform.position;
+			// calculate movement at the desired speed:
+			Vector3 movement = dir.normalized * speed * Time.deltaTime;
+			// limit movement to never pass the target position:
+			if (movement.magnitude > dir.magnitude) 
+			{
+				movement = dir;
+				moving = false;
 			}
 
-			if(moving)
-			{
-				// find the target position relative to the player:
-				Vector3 dir = endPos - transform.position;
-				// calculate movement at the desired speed:
-				Vector3 movement = dir.normalized * speed * Time.deltaTime;
-				// limit movement to never pass the target position:
-				if (movement.magnitude > dir.magnitude) 
-				{
-					movement = dir;
-					moving = false;
-				}
+			//movement.y -= gravity * Time.deltaTime;
 
-				//movement.y -= gravity * Time.deltaTime;
+			controller.Move(movement);
+		}
+	}
 
-				controller.Move(movement);
+	public void ChangeColor(ColorComponent.pColor color) {
+		Renderer[] renderers = GetComponentsInChildren<Renderer> ();
+		
+		foreach(Renderer rend in renderers) {
+			if (color == ColorComponent.pColor.blue) {
+				rend.material.SetColor("_MainColor", Color.blue);
+				rend.material.SetColor("_EmitColor", Color.red);
+			} else if(color == ColorComponent.pColor.red) {
+				rend.material.SetColor("_MainColor", Color.red);
+				rend.material.SetColor("_EmitColor", Color.blue);
+			} else if(color == ColorComponent.pColor.grey) {
+				Debug.Log("No gray teleporters", this);
 			}
 		}
 	}

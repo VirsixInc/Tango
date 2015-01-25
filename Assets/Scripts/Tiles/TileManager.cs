@@ -13,7 +13,7 @@ public class TileManager : MonoBehaviour
 
 	public GameObject defaultTile;
 
-	void Start () 
+	void Awake () 
 	{
 		tiles = new Tile[width*height];
 		GameObject[] holders = GameObject.FindGameObjectsWithTag("TileHolders");// transform.GetComponentsInChildren<Transform>();

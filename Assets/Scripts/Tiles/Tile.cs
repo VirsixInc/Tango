@@ -11,12 +11,13 @@ public class Tile : MonoBehaviour
 
 	GameObject objectOnTile;
 
-	public TileObject tileObject;
+	TileObject tileObject;
 
 	bool reserved;
 
 	void Awake() 
 	{
+		tileObject = GetComponentInChildren<TileObject> ();
 		reserved = !passable;
 	}
 
