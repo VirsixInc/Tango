@@ -11,6 +11,7 @@ public class Box : MonoBehaviour {
 	public Tile nextTile;
 	public Vector3 endPos;
 	private bool dying;
+	private AudioSource myAudioSource;
 
 	// Use this for initialization
 	void Start () 
@@ -18,7 +19,7 @@ public class Box : MonoBehaviour {
 		// Send Coordinates to TileManager and receive corresponding tile
 		tileManager = FindObjectOfType<TileManager>();
 		dying = false;
-
+		myAudioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -44,9 +45,12 @@ public class Box : MonoBehaviour {
 				transform.position = currentTile.GetNodePos();
 			}
 		}
-
+		
 		if(moving)
 		{
+			if( !myAudioSource.isPlaying )
+				audio.Play();
+
 			transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * pushSpeed);
 			
 			if(transform.position == endPos)
