@@ -25,12 +25,12 @@ public class Tile : MonoBehaviour
 		return reserved;
 	}
 
-	public void ReserveNode( bool reserve, bool isPlayer)
+	public void ReserveNode( bool reserve, bool canStepOn)
 	{
 		if(passable)
 			reserved = reserve;
 
-		if( !reserve && isPlayer && tileObject != null )
+		if( !reserve && canStepOn && tileObject != null )
 			tileObject.SteppedOff();
 	}
 
