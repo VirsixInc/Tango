@@ -13,6 +13,8 @@ public class TileManager : MonoBehaviour
 
 	public GameObject defaultTile;
 
+	public Material greyBox;
+
 	void Awake () 
 	{
 		tiles = new Tile[width*height];
@@ -161,7 +163,7 @@ public class TileManager : MonoBehaviour
 			
 			if(targetIndex < width) 
 			{
-				if(!tiles[index + 1].IsReserved() || tiles[index - 1].canBeBridged) 
+				if(!tiles[index + 1].IsReserved() || tiles[index + 1].canBeBridged) 
 				{
 					tiles[index + 1].ReserveNode(true, true);
 					tiles[index + 1].PlayerEnter(color);
@@ -245,5 +247,10 @@ public class TileManager : MonoBehaviour
 			}
 		}
 		return null;
+	}
+
+	public Material GetBoxMat()
+	{
+		return greyBox;
 	}
 }
