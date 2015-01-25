@@ -123,4 +123,9 @@ public class Box : MonoBehaviour {
 		
 		return false;
 	}
+
+	public bool IsDying()
+	{
+		return dying;
+	}
 }
