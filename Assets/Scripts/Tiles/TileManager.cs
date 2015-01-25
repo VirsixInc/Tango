@@ -13,6 +13,8 @@ public class TileManager : MonoBehaviour
 
 	public GameObject defaultTile;
 
+	public Material greyBox;
+
 	void Awake () 
 	{
 		tiles = new Tile[width*height];
@@ -245,5 +247,10 @@ public class TileManager : MonoBehaviour
 			}
 		}
 		return null;
+	}
+
+	public Material GetBoxMat()
+	{
+		return greyBox;
 	}
 }

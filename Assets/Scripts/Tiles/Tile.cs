@@ -15,10 +15,21 @@ public class Tile : MonoBehaviour
 
 	public bool reserved;
 
+	TileManager tileManager;
+
 	void Awake() 
 	{
 		tileObject = GetComponentInChildren<TileObject> ();
 		reserved = !passable;
+	}
+
+	void Start()
+	{
+		GameObject tileHolders = GameObject.Find("Tile Holders");
+		if(tileHolders != null)
+		{
+			tileManager = tileHolders.GetComponent<TileManager>();
+		}
 	}
 
 	public bool IsReserved()
@@ -51,7 +62,9 @@ public class Tile : MonoBehaviour
 			passable = true;
 			canBeBridged = false;
 			reserved = false;
-			//TODO swap texture
+
+
+			gameObject.transform.GetComponentInChildren<MeshRenderer>().material = tileManager.GetBoxMat();
 		}
 		else
 			objectOnTile = obj;
