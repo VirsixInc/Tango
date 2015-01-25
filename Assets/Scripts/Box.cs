@@ -10,12 +10,14 @@ public class Box : MonoBehaviour {
 	public Tile currentTile;
 	public Tile nextTile;
 	public Vector3 endPos;
+	private bool dying;
 
 	// Use this for initialization
 	void Start () 
 	{
 		// Send Coordinates to TileManager and receive corresponding tile
 		tileManager = FindObjectOfType<TileManager>();
+		dying = false;
 
 	}
 	
@@ -57,6 +59,7 @@ public class Box : MonoBehaviour {
 
 	public void FallIntoHole() 
 	{
+		dying = true;
 		StartCoroutine( DropAndDie() );
 	}
 
@@ -80,7 +83,7 @@ public class Box : MonoBehaviour {
 
 	public bool MoveObject(Direction dir)
 	{
-		if(!moving)
+		if(!moving && ! dying)
 		{
 			nextTile = tileManager.MoveObjectToTile(currentTile, dir, GetComponent<ColorComponent>().currentColor);
 			//currentDirection = Direction.UP;
