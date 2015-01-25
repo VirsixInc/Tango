@@ -70,7 +70,7 @@ public class PlayerInput : MonoBehaviour {
 		if(Input.GetButtonDown("Submit" + controllerName))
 		{
 			// Player selects an object.
-			Debug.Log("A Button Pressed");
+			Debug.Log("A Button Pressed by:" + controllerName);
 
 			grabbedGameObject = tileManager.GrabObjectAtTile(currentTile, currentDirection);
 			
@@ -87,10 +87,10 @@ public class PlayerInput : MonoBehaviour {
 				}
 			}
 		}
-		else if(Input.GetButtonUp("Submit" + controllerName))
+		else if(Input.GetButtonUp("Submit" + controllerName) || (grabbedBoxComponent != null && grabbedBoxComponent.IsDying()))
 		{
 			grabParticle.SetActive(false);
-			Debug.Log("A Button Released");
+			Debug.Log("A Button Released by:" + controllerName);
 			isGrabbing = false;
 			grabbedGameObject = null;
 			grabbedBoxComponent = null;

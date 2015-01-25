@@ -161,7 +161,7 @@ public class TileManager : MonoBehaviour
 			
 			if(targetIndex < width) 
 			{
-				if(!tiles[index + 1].IsReserved() || tiles[index - 1].canBeBridged) 
+				if(!tiles[index + 1].IsReserved() || tiles[index + 1].canBeBridged) 
 				{
 					tiles[index + 1].ReserveNode(true, true);
 					tiles[index + 1].PlayerEnter(color);
