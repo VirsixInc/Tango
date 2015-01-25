@@ -80,13 +80,22 @@ public class Box : MonoBehaviour {
 	IEnumerator DropAndDie() 
 	{
 		Vector3 fromPos = transform.position;
-		Vector3 toPos = new Vector3( fromPos.x, fromPos.y - 3f, fromPos.z );
+		Vector3 toPos = new Vector3( fromPos.x, fromPos.y - 1f, fromPos.z );
 		float elapsedTime = 0f;
 		float lerpTime = 1f;
 
+		MeshRenderer[] boxRenderers = this.transform.GetComponentsInChildren<MeshRenderer>();
+		Color fromColor = boxRenderers[0].materials[0].color;
+		float lerpColorTime = 0.5f;
 		while( elapsedTime < lerpTime ) 
 		{
 			transform.position = Vector3.Lerp( fromPos, toPos, ( elapsedTime/lerpTime ));
+
+			foreach(MeshRenderer renderer in boxRenderers)
+			{
+				renderer.materials[0].color = Color.Lerp(fromColor, Color.white, (elapsedTime/lerpColorTime));
+			}
+
 			elapsedTime += Time.deltaTime;
 			yield return null;
 		}
