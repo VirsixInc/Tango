@@ -38,7 +38,7 @@ public class Box : MonoBehaviour {
 			if(currentTile != null)
 			{
 				currentTile.SetObject(this.gameObject);
-				currentTile.ReserveNode(true, false);
+				currentTile.ReserveNode(true, true);
 				transform.position = currentTile.GetNodePos();
 			}
 		}
@@ -52,7 +52,7 @@ public class Box : MonoBehaviour {
 		}
 	}
 
-	void FallIntoHole() 
+	public void FallIntoHole() 
 	{
 		StartCoroutine( DropAndDie() );
 	}
@@ -91,7 +91,7 @@ public class Box : MonoBehaviour {
 	{
 		if (nextTile != null && currentTile != nextTile)
 		{
-			currentTile.ReserveNode(false, false);
+			currentTile.ReserveNode(false, true);
 			currentTile.SetObject(null);
 			currentTile = nextTile;
 			currentTile.SetObject(this.gameObject);
