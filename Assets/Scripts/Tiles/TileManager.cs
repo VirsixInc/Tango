@@ -118,7 +118,7 @@ public class TileManager : MonoBehaviour
 		case Direction.UP:
 			targetIndex = index - width;
 			
-			if(targetIndex > 0) 
+			if(targetIndex > -1) 
 			{
 				return tiles[targetIndex].GetObjectOnTile();
 			}
@@ -126,7 +126,7 @@ public class TileManager : MonoBehaviour
 		case Direction.DOWN:
 			targetIndex = index + width;
 			
-			if(targetIndex < (width * height) - 1) 
+			if(targetIndex < (width * height)) 
 			{
 				return tiles[targetIndex].GetObjectOnTile();
 			}
