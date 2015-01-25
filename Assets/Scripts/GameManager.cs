@@ -92,6 +92,9 @@ public class GameManager : MonoBehaviour {
 				NextTransition();
 			}
 		}
+		if(Input.GetKeyDown(KeyCode.Q)) {
+			NextTransition();
+		}
 	}
 
 	public static void TeleporterOn(ColorComponent.pColor color) {
@@ -238,7 +241,7 @@ public class GameManager : MonoBehaviour {
 			obj.StopAllCoroutines();
 		}
 
-		if(Application.loadedLevel < Application.levelCount) {
+		if(Application.loadedLevel < Application.levelCount - 1) {
 			Application.LoadLevel (Application.loadedLevel + 1);
 		} else {
 			Menu ();
