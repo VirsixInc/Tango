@@ -103,7 +103,7 @@ public class TileManager : MonoBehaviour
 			break;
 		default:
 			return null;
-			break;
+//			break;
 		}
 		return null;
 	}
@@ -148,7 +148,7 @@ public class TileManager : MonoBehaviour
 			break;
 		default:
 			return null;
-			break;
+//			break;
 		}
 		return null;
 	}

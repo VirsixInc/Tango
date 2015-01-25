@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour {
 //	enum State {
@@ -17,39 +18,23 @@ public class GameManager : MonoBehaviour {
 	public GameObject optionMenu;
 	public GameObject pauseMenu;
 	public GameObject mainCanvas; // I'm just gonna bring this along with me because otherwise it loses references to me //Maybe fix?
+	public GameObject sceneTransition;
+	EventSystem eventSystem;
 
 	public static bool paused = false;
 
 	public static float musicVolume = 8;
 	public static float effectsVolume = 8;
 
-	void Start () {
+	void Awake () {
 		if(s_instance == null) {
 			s_instance = this;
-//			GameObject mainCanvas = GameObject.Find("MainCanvas");
-//			mainCanvas.transform.FindChild("StartGame").GetComponent<Button>().onClick.RemoveAllListeners();
-//			mainCanvas.transform.FindChild("StartGame").GetComponent<Button>().onClick.AddListener(delegate{Next();});
+			eventSystem = transform.FindChild("EventSystem").GetComponent<EventSystem>();
 		} else {
-			Destroy(gameObject);
-//			OptionMenu[] options = FindObjectsOfType<OptionMenu>();
-//			for(int i = 0; i < options.Length; i++) {
-//				if(options[i].gameObject != optionMenu)
-			Destroy(optionMenu);
-//			}
-//			PauseMenu[] pauses = FindObjectsOfType<PauseMenu>();
-//			for(int i = 0; i < pauses.Length; i++) {
-//				if(pauses[i].gameObject != pauseMenu)
-			Destroy(pauseMenu);
-//			}
-//
-//			Canvas[] mainCanvases = FindObjectsOfType<Canvas>();
-//			for(int i = 0; i < mainCanvases.Length; i++) {
-//				if(mainCanvases[i].name == "MainCanvas") {
-//					if(mainCanvases[i].gameObject.GetInstanceID() != mainCanvas.GetInstanceID()) {
-			Destroy(mainCanvas);
-		//					}
-//				}
-//			}
+			DestroyImmediate(optionMenu);
+			DestroyImmediate(pauseMenu);
+			DestroyImmediate(mainCanvas);
+			DestroyImmediate(gameObject);
 			return;
 		}
 		DontDestroyOnLoad (gameObject);
@@ -57,18 +42,21 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad (pauseMenu);
 		DontDestroyOnLoad (mainCanvas);
 		transform.FindChild ("EventSystem").gameObject.SetActive (true);
+
+		eventSystem.SetSelectedGameObject (mainCanvas.transform.FindChild ("StartGame").gameObject);
 	}
 
 	void OnLevelWasLoaded() {
 		if (Application.loadedLevelName == "MainMenu") {
 			TogglePauseMenu ();
 			mainCanvas.SetActive(true);
+			eventSystem.SetSelectedGameObject(mainCanvas.transform.FindChild ("StartGame").gameObject);
 		}
 	}
 	
 	void Update () {
 		if (Application.loadedLevelName != "MainMenu" && Application.loadedLevelName != "Ending") {
-			if(Input.GetButtonDown("Pause")) {
+			if(Input.GetButtonDown("Pause Stick 1") || Input.GetButtonDown("Pause Stick 2")) {
 				paused = !paused;
 				TogglePauseMenu();
 				if(paused)
@@ -80,17 +68,48 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void TogglePauseMenu() {
-		if(pauseMenu.gameObject.activeSelf)
+		if(pauseMenu.gameObject.activeSelf) {
 			pauseMenu.SetActive (false);
-		else
-			pauseMenu.SetActive(true);
+//			EventSystem.current.SetSelectedGameObject (mainCanvas.transform.FindChild ("StartGame").gameObject);
+		} else {
+ 			pauseMenu.SetActive(true);
+			eventSystem.SetSelectedGameObject (pauseMenu.transform.FindChild ("Resume").gameObject);
+		}
+	}
+
+	public delegate void ActionDelegate();
+
+	IEnumerator FadeAndDoAction(bool fadeIn, ActionDelegate action) {
+		GameObject background = sceneTransition.transform.FindChild ("Background").gameObject;
+		if(fadeIn) {
+			background.animation["FadeInOut"].time = background.animation["FadeInOut"].length;
+			background.animation["FadeInOut"].speed = -1;
+			background.animation.Play ();
+		} else {
+			background.animation["FadeInOut"].time = 0;
+			background.animation["FadeInOut"].speed = 1;
+			background.animation.Play ();
+		}
+		yield return new WaitForSeconds (background.animation ["FadeInOut"].length);
+		action ();
 	}
 
 	public void ToggleOptionMenu() {
-		if(optionMenu.gameObject.activeSelf)
+		if(optionMenu.gameObject.activeSelf) {
 			optionMenu.SetActive (false);
-		else
+			if(Application.loadedLevelName == "MainMenu") {
+				mainCanvas.SetActive(true);
+				eventSystem.SetSelectedGameObject (mainCanvas.transform.FindChild ("Options").gameObject);
+			} else {
+				pauseMenu.SetActive(true);
+				eventSystem.SetSelectedGameObject (pauseMenu.transform.FindChild ("Options").gameObject);
+			}
+		} else {
 			optionMenu.SetActive(true);
+			mainCanvas.SetActive(false);
+			pauseMenu.SetActive(false);
+			eventSystem.SetSelectedGameObject (optionMenu.transform.FindChild ("Return").gameObject);
+		}
 	}
 
 	public void StartGame() {
@@ -121,6 +140,7 @@ public class GameManager : MonoBehaviour {
 
 	public static void NextLevel() {
 		s_instance.Next ();
+//		s_instance.FadeAndDoAction (false, s_instance.Next);
 	}
 
 	public void Next() {
