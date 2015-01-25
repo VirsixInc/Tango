@@ -192,7 +192,7 @@ public class PlayerInput : MonoBehaviour {
 	{
 		if (nextTile != null && currentTile != nextTile)
 		{
-			currentTile.ReserveNode(false);
+			currentTile.ReserveNode(false, true);
 			currentTile = nextTile;
 			moving = true;
 			endPos = nextTile.GetNodePos();
