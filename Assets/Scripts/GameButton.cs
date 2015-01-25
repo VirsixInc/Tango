@@ -8,22 +8,27 @@ public class GameButton : MonoBehaviour {
 	public bool requiresPressure = false;
 
 	private Animator animator;
-	private PlayerColor.pColor myColor = PlayerColor.pColor.Red;
+	private ColorComponent color;
 
 	private void Start() {
 		animator = GetComponent<Animator>();
+		color = GetComponent<ColorComponent>();
 	}
 
-	private void StepOn() {
+	public void StepOn() {
 		isPressed = true;
 		animator.SetTrigger( "Lower" );
 	}
 
-	private void StepOff() {
+	public void StepOff() {
 		if( isPressed && requiresPressure ) {
 			isPressed = false;
 			animator.SetTrigger( "Raise" );
 		}
+	}
+
+	public ColorComponent.pColor GetColor() {
+		return color.currentColor;
 	}
 
 //	private void OnTriggerEnter( Collider col ) {
