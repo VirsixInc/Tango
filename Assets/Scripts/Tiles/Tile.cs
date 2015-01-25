@@ -49,6 +49,7 @@ public class Tile : MonoBehaviour
 
 			passable = true;
 			canBeBridged = false;
+			reserved = false;
 			//TODO swap texture
 		}
 		else
