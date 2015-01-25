@@ -63,6 +63,20 @@ public class Box : MonoBehaviour {
 		StartCoroutine( DropAndDie() );
 	}
 
+	public void ChangeColor(ColorComponent.pColor color) {
+		Renderer[] renderers = GetComponentsInChildren<Renderer> ();
+		
+		foreach(Renderer rend in renderers) {
+			if (color == ColorComponent.pColor.blue) {
+				rend.material.color = new Color(54f/255f, 64f/255f, 244f/255f);
+			} else if(color == ColorComponent.pColor.red) {
+				rend.material.color = new Color(201f/255f, 65f/255f, 65f/255f);
+			} else if(color == ColorComponent.pColor.grey) {
+				Debug.Log("No gray teleporters", this);
+			}
+		}
+	}
+
 	IEnumerator DropAndDie() 
 	{
 		Vector3 fromPos = transform.position;
