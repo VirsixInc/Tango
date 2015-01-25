@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour {
 
 	public static float musicVolume = 8;
 	public static float effectsVolume = 8;
+	public AudioClip mainMenuMusic;
+	public AudioClip gameMusic;
+	private AudioSource myAudioSource;
 
 	static bool redTeleportOn = false, blueTeleportOn = false;
 
@@ -46,13 +49,33 @@ public class GameManager : MonoBehaviour {
 		transform.FindChild ("EventSystem").gameObject.SetActive (true);
 
 		eventSystem.SetSelectedGameObject (mainCanvas.transform.FindChild ("StartGame").gameObject);
+		myAudioSource = GetComponent<AudioSource>();
+
+		// Audio
+		myAudioSource.clip = mainMenuMusic;
+		myAudioSource.Play();
 	}
 
 	void OnLevelWasLoaded() {
 		if (Application.loadedLevelName == "MainMenu") {
+			// Audio
+			myAudioSource.clip = mainMenuMusic;
+			myAudioSource.Play();
+
 			TogglePauseMenu ();
 			mainCanvas.SetActive(true);
 			eventSystem.SetSelectedGameObject(mainCanvas.transform.FindChild ("StartGame").gameObject);
+			myAudioSource = GetComponent<AudioSource>();
+			
+			// Audio
+			myAudioSource.clip = mainMenuMusic;
+			myAudioSource.Play();
+		} else {
+			// Audio
+			if( myAudioSource.clip != gameMusic || !myAudioSource.isPlaying) {
+				myAudioSource.clip = gameMusic;
+				myAudioSource.Play();
+			}
 		}
 	}
 	

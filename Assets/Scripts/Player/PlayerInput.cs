@@ -76,10 +76,11 @@ public class PlayerInput : MonoBehaviour {
 			
 			if(grabbedGameObject != null)
 			{
-				grabParticle.SetActive(true);
+
 				if(grabbedGameObject.GetComponent<ColorComponent>() != null 
 				   && grabbedGameObject.GetComponent<ColorComponent>().currentColor == color)
 				{
+					grabParticle.SetActive(true);
 					Debug.Log("Grabbing box!");
 					grabbedBoxComponent = grabbedGameObject.GetComponent<Box>();
 					isGrabbing = true;
