@@ -79,7 +79,7 @@ public class Box : MonoBehaviour {
 	{
 		if(!moving)
 		{
-			nextTile = tileManager.MoveToTile(currentTile, dir, GetComponent<ColorComponent>().currentColor);
+			nextTile = tileManager.MoveObjectToTile(currentTile, dir, GetComponent<ColorComponent>().currentColor);
 			//currentDirection = Direction.UP;
 			return SetDestinationTile();
 		}
