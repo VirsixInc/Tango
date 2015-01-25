@@ -25,6 +25,10 @@ public class PlayerInput : MonoBehaviour {
 
 	// Grabbing a box
 	private bool isGrabbing;
+	public GameObject grabbedGameObject;
+
+	//player color
+	ColorComponent.pColor color;
 
 
 	// Use this for initialization
@@ -42,6 +46,8 @@ public class PlayerInput : MonoBehaviour {
 
 		currentDirection = Direction.UP;
 		isGrabbing = false;
+
+		color = gameObject.GetComponent<ColorComponent>().currentColor;
 	}
 	
 	// Update is called once per frame	
@@ -91,13 +97,13 @@ public class PlayerInput : MonoBehaviour {
 				{
 					if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
 					{
-						nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
+						nextTile = tileManager.MoveToTile(currentTile, Direction.UP, color);
 						SetDestinationTile();
 					}
 					
 					if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
 					{
-						nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
+						nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN, color);
 						SetDestinationTile();
 					}
 				}
@@ -105,13 +111,13 @@ public class PlayerInput : MonoBehaviour {
 				{
 					if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
 					{
-						nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
+						nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT, color);
 						SetDestinationTile();
 					}
 					
 					if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
 					{
-						nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
+						nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT, color);
 						SetDestinationTile();
 					}
 				}
@@ -120,28 +126,28 @@ public class PlayerInput : MonoBehaviour {
 			{
 				if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
 				{
-					nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
+					nextTile = tileManager.MoveToTile(currentTile, Direction.UP, color);
 					currentDirection = Direction.UP;
 					SetDestinationTile();
 				}
 				
 				if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
 				{
-					nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
+					nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN, color);
 					currentDirection = Direction.DOWN;
 					SetDestinationTile();
 				}
 				
 				if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
 				{
-					nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
+					nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT, color);
 					currentDirection = Direction.LEFT;
 					SetDestinationTile();
 				}
 				
 				if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
 				{
-					nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
+					nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT, color);
 					currentDirection = Direction.RIGHT;
 					SetDestinationTile();
 				}

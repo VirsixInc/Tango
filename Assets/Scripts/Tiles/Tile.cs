@@ -11,6 +11,8 @@ public class Tile : MonoBehaviour
 
 	GameObject objectOnTile;
 
+	public TileObject tileObject;
+
 	bool reserved;
 
 	void Awake() 
@@ -38,6 +40,7 @@ public class Tile : MonoBehaviour
 	{
 		if( canBeBridged )
 		{
+			//TODO
 			//kill object
 			passable = true;
 			canBeBridged = false;
@@ -49,5 +52,11 @@ public class Tile : MonoBehaviour
 	public GameObject GetObjectOnTile()
 	{
 		return objectOnTile;
+	}
+
+	public void PlayerEnter(ColorComponent.pColor color)
+	{
+		if( tileObject != null )
+			tileObject.SteppedOn(color);
 	}
 }

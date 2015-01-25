@@ -47,7 +47,7 @@ public class TileManager : MonoBehaviour
 	/// <returns>The to tile.</returns>
 	/// <param name="tile">Tile.</param>
 	/// <param name="direction">Direction.</param>
-	public Tile MoveToTile( Tile tile, Direction direction )
+	public Tile MoveToTile( Tile tile, Direction direction, ColorComponent.pColor color )
 	{
 		int index = GetIndex(tile);
 		int targetIndex = 0;
@@ -56,11 +56,12 @@ public class TileManager : MonoBehaviour
 		case Direction.UP:
 			targetIndex = index - width;
 
-			if(targetIndex > 0) 
+			if(targetIndex > -1) 
 			{
 				if(!tiles[targetIndex].IsReserved()) 
 				{
 					tiles[targetIndex].ReserveNode(true);
+					tiles[targetIndex].PlayerEnter(color);
 					return tiles[targetIndex];
 				}
 			}
@@ -68,7 +69,7 @@ public class TileManager : MonoBehaviour
 		case Direction.DOWN:
 			targetIndex = index + width;
 
-			if(targetIndex < (width * height) - 1) 
+			if(targetIndex < (width * height) ) 
 			{
 				if(!tiles[targetIndex].IsReserved()) 
 				{
@@ -166,5 +167,17 @@ public class TileManager : MonoBehaviour
 	public Tile GetTileFromIndex(int index) 
 	{
 		return tiles[index];
+	}
+
+	public Tile GetTileAtPosition( Vector3 pos )
+	{
+		foreach( Tile tile in tiles )
+		{
+			if( tile.transform.position.x == pos.x && tile.transform.position.z == pos.z )
+			{
+				return tile;
+			}
+		}
+		return null;
 	}
 }
