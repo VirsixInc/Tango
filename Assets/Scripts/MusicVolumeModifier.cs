@@ -25,7 +25,7 @@ public class MusicVolumeModifier : MonoBehaviour {
 
 	void UpdateMusicVolume() {
 		if( myAudioSource != null ) {
-			myAudioSource.volume = GameManager.musicVolume / 10f;
+			myAudioSource.volume = GameManager.musicVolume / 20f;
 		}
 	}
 	

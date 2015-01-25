@@ -7,6 +7,7 @@ public class GameButton : MonoBehaviour {
 	public bool isPressed = false;
 	public bool requiresPressure = false;
 
+	private AudioSource myAudioSource;
 	private Animator animator;
 	private ColorComponent color;
 
@@ -17,9 +18,13 @@ public class GameButton : MonoBehaviour {
 		color = GetComponent<ColorComponent>();
 		if(target == null)
 			Debug.Log("Hook up target", this);
+
+		myAudioSource = GetComponent<AudioSource>();
 	}
 
 	public void StepOn() {
+		myAudioSource.Play();
+
 		isPressed = true;
 		animator.SetTrigger( "Lower" );
 		if(target != null)
@@ -28,6 +33,8 @@ public class GameButton : MonoBehaviour {
 
 	public void StepOff() {
 		if( isPressed && requiresPressure ) {
+			myAudioSource.Play();
+
 			isPressed = false;
 			animator.SetTrigger( "Raise" );
 			if(target != null)
@@ -63,21 +70,4 @@ public class GameButton : MonoBehaviour {
 		if(target != null)
 			Gizmos.DrawLine (transform.position, target.transform.position);
 	}
-
-//	private void OnTriggerEnter( Collider col ) {
-//		if( col.transform.tag == "Player" || col.transform.tag == "Box" ) {
-//			PlayerColor.pColor  colColor = col.GetComponent<PlayerColor>().color;
-//			if( colColor == myColor ) {
-//				isPressed = true;
-//				animator.SetTrigger( "Depress" );
-//			}
-//		}
-//	}
-//
-//	private void OnTriggerExit( Collider col ) {
-//		if( isPressed && requiresPressure ) {
-//			isPressed = false;
-//			animator.SetTrigger( "Raise" );
-//		}
-//	}
 }

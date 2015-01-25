@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 	public static bool paused = false;
 
 	public static float musicVolume = 8;
-	public static float effectsVolume = 8;
+	public static float effectsVolume = 1;
 	public AudioClip mainMenuMusic;
 	public AudioClip gameMusic;
 	private AudioSource myAudioSource;
