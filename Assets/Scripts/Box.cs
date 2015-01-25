@@ -12,6 +12,8 @@ public class Box : MonoBehaviour {
 	public Vector3 endPos;
 	private bool dying;
 	private AudioSource myAudioSource;
+	public AudioClip moveSound;
+	public AudioClip dropSound;
 
 	// Use this for initialization
 	void Start () 
@@ -20,6 +22,7 @@ public class Box : MonoBehaviour {
 		tileManager = FindObjectOfType<TileManager>();
 		dying = false;
 		myAudioSource = GetComponent<AudioSource>();
+		myAudioSource.clip = moveSound;
 	}
 	
 	// Update is called once per frame
@@ -63,6 +66,8 @@ public class Box : MonoBehaviour {
 
 	public void FallIntoHole() 
 	{
+		myAudioSource.clip = dropSound;
+		myAudioSource.Play();
 		dying = true;
 		StartCoroutine( DropAndDie() );
 	}
