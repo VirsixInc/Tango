@@ -5,24 +5,26 @@ public class Teleporter : MonoBehaviour {
 
 	public bool activated = false;
 	public bool requiresPressure = false;
-	
-	private Animator animator;
+
 	private ColorComponent color;
 	
 	private void Start() {
-		animator = GetComponent<Animator>();
 		color = GetComponent<ColorComponent>();
 	}
 	
 	public void StepOn() {
+		GameManager.TeleporterOn (color.currentColor);
 		activated = true;
-//		animator.SetTrigger( "Lower" );
 	}
 	
 	public void StepOff() {
+		GameManager.TeleporterOff (color.currentColor);
 		activated = false;
-//		animator.SetTrigger( "Raise" );
 	}
+
+//	public void Teleport() {
+//
+//	}
 	
 	public ColorComponent.pColor GetColor() {
 		return color.currentColor;
