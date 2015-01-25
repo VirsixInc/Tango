@@ -60,7 +60,7 @@ public class TileManager : MonoBehaviour
 			{
 				if(!tiles[targetIndex].IsReserved()) 
 				{
-					tiles[targetIndex].ReserveNode(true);
+					tiles[targetIndex].ReserveNode(true, true);
 					tiles[targetIndex].PlayerEnter(color);
 					return tiles[targetIndex];
 				}
@@ -73,7 +73,7 @@ public class TileManager : MonoBehaviour
 			{
 				if(!tiles[targetIndex].IsReserved()) 
 				{
-					tiles[targetIndex].ReserveNode(true);
+					tiles[targetIndex].ReserveNode(true, true);
 					return tiles[targetIndex];
 				}
 			}
@@ -85,7 +85,7 @@ public class TileManager : MonoBehaviour
 			{
 				if(!tiles[index - 1].IsReserved()) 
 				{
-					tiles[index - 1].ReserveNode(true);
+					tiles[index - 1].ReserveNode(true, true);
 					return tiles[index - 1];
 				}
 			}
@@ -97,7 +97,7 @@ public class TileManager : MonoBehaviour
 			{
 				if(!tiles[index + 1].IsReserved()) 
 				{
-					tiles[index + 1].ReserveNode(true);
+					tiles[index + 1].ReserveNode(true, true);
 					return tiles[index + 1];
 				}
 			}
@@ -173,7 +173,8 @@ public class TileManager : MonoBehaviour
 	{
 		foreach( Tile tile in tiles )
 		{
-			if( tile.transform.position.x == pos.x && tile.transform.position.z == pos.z )
+			if( pos.x >= tile.transform.position.x - 0.2f && pos.x <= tile.transform.position.x + 0.2f
+			   && pos.z >= tile.transform.position.z - 0.2f && pos.z <= tile.transform.position.z + 0.2f )
 			{
 				return tile;
 			}
