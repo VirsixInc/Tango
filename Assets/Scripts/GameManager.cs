@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
 			DestroyImmediate(pauseMenu);
 			DestroyImmediate(mainCanvas);
 			DestroyImmediate(gameObject);
+			DestroyImmediate(sceneTransition);
 			return;
 		}
 		DontDestroyOnLoad (gameObject);
@@ -51,6 +52,8 @@ public class GameManager : MonoBehaviour {
 		// Audio
 		myAudioSource.clip = mainMenuMusic;
 		myAudioSource.Play();
+
+		sceneTransition.SetActive (false);
 	}
 
 	void OnLevelWasLoaded() {
@@ -114,10 +117,6 @@ public class GameManager : MonoBehaviour {
 //		print (color.ToString () + " off!");
 	}
 
-//	void Teleporter() {
-//
-//	}
-
 	public void TogglePauseMenu() {
 		if(pauseMenu.gameObject.activeSelf) {
 			pauseMenu.SetActive (false);
@@ -130,17 +129,39 @@ public class GameManager : MonoBehaviour {
 
 	public delegate void ActionDelegate();
 
-	IEnumerator FadeAndDoAction(bool fadeIn, ActionDelegate action) {
+	IEnumerator FadeInAndDoAction(ActionDelegate action) {
 		GameObject background = sceneTransition.transform.FindChild ("Background").gameObject;
-		if(fadeIn) {
-			background.animation["FadeInOut"].time = background.animation["FadeInOut"].length;
-			background.animation["FadeInOut"].speed = -1;
-			background.animation.Play ();
-		} else {
-			background.animation["FadeInOut"].time = 0;
-			background.animation["FadeInOut"].speed = 1;
-			background.animation.Play ();
+		sceneTransition.SetActive (true);
+
+//		background.animation["FadeInOut"].time = 0;
+//		background.animation["FadeInOut"].speed = 1;
+//		background.animation.Play ("FadeInOut");
+
+		float timer = 0f;
+
+		while (timer < 1f) {
+			timer += Time.deltaTime * 2f;
+			Color color = background.GetComponent<Image>().color;
+			color.a = Mathf.Lerp(0f, 1f, timer);
+
+			if(timer > 1f) {
+				timer = 1f;
+				color.a = Mathf.Lerp(0f, 1f, color.a);
+			}
+			background.GetComponent<Image>().color = color;
+			yield return null;
 		}
+		action ();
+	}
+
+	IEnumerator FadeOutAndDoAction(ActionDelegate action) {
+		GameObject background = sceneTransition.transform.FindChild ("Background").gameObject;
+		sceneTransition.SetActive (true);
+		
+		background.animation["FadeInOut"].time = background.animation["FadeInOut"].length;
+		background.animation["FadeInOut"].speed = -1;
+		background.animation.Play ("FadeInOut");
+
 		yield return new WaitForSeconds (background.animation ["FadeInOut"].length);
 		action ();
 	}
@@ -164,8 +185,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void StartGame() {
-		mainCanvas.SetActive (false);
-		Next ();
+		NextTransition ();
+
 	}
 
 	public static void ExitGame() {
@@ -190,8 +211,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public static void NextLevel() {
-		s_instance.Next ();
+		s_instance.NextTransition ();
 //		s_instance.FadeAndDoAction (false, s_instance.Next);
+	}
+
+	public void NextTransition() {
+		StartCoroutine ("FadeInAndDoAction", (ActionDelegate)Next);
 	}
 
 	public void Next() {
@@ -204,6 +229,8 @@ public class GameManager : MonoBehaviour {
 		} else {
 			Menu ();
 		}
+		if (mainCanvas.activeSelf)
+			mainCanvas.SetActive (false);
 	}
 
 	public static void MainMenu() {
