@@ -25,7 +25,7 @@ public class PlayerInput : MonoBehaviour {
 
 	// Grabbing a box
 	private bool isGrabbing;
-
+	public GameObject grabbedGameObject;
 
 	// Use this for initialization
 	void Start () 
@@ -67,17 +67,25 @@ public class PlayerInput : MonoBehaviour {
 			{
 				// Player selects an object.
 				Debug.Log("A Button Pressed");
-				isGrabbing = true;
+
+
+				grabbedGameObject = tileManager.GrabObjectAtTile(currentTile, currentDirection);
+
+				if(grabbedGameObject != null)
+				{
+					Debug.Log("Grabbing box!");
+					isGrabbing = true;
+				}
 			}
 			else if(Input.GetButtonUp("Submit" + controllerName))
 			{
 				Debug.Log("A Button Released");
+				grabbedGameObject = null;
 				isGrabbing = false;
 			}
 
 			if(Input.GetButtonDown("Pause" + controllerName))
 			{
-				// Player selects an object.
 				Debug.Log("Pause Button Pressed");
 			}
 
