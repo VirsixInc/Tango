@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad (optionMenu);
 		DontDestroyOnLoad (pauseMenu);
 		DontDestroyOnLoad (mainCanvas);
+		DontDestroyOnLoad(sceneTransition);
 		transform.FindChild ("EventSystem").gameObject.SetActive (true);
 
 		eventSystem.SetSelectedGameObject (mainCanvas.transform.FindChild ("StartGame").gameObject);
@@ -77,12 +78,18 @@ public class GameManager : MonoBehaviour {
 				myAudioSource.Play();
 			}
 		}
+		sceneTransition.SetActive (false);
 	}
 	
 	void Update () {
 		if (Application.loadedLevelName != "MainMenu" && Application.loadedLevelName != "Ending") {
 			if(Input.GetButtonDown("Pause Stick 1") || Input.GetButtonDown("Pause Stick 2")) {
 				TogglePauseMenu();
+			}
+		}
+		if(Application.loadedLevelName == "Ending") {
+			if(Input.GetButtonDown("Pause Stick 1") || Input.GetButtonDown("Pause Stick 2")) {
+				NextTransition();
 			}
 		}
 	}
@@ -158,15 +165,20 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator FadeOutAndDoAction(ActionDelegate action) {
 		GameObject background = sceneTransition.transform.FindChild ("Background").gameObject;
-		sceneTransition.SetActive (true);
-		
-		background.animation["FadeInOut"].time = background.animation["FadeInOut"].length;
-		background.animation["FadeInOut"].speed = -1;
-		background.animation.Play ("FadeInOut");
-
+//		sceneTransition.SetActive (true);
+//		
+//		background.animation["FadeInOut"].time = background.animation["FadeInOut"].length;
+//		background.animation["FadeInOut"].speed = -1;
+//		background.animation.Play ("FadeInOut");
+//
 		yield return new WaitForSeconds (background.animation ["FadeInOut"].length);
-		action ();
+		sceneTransition.SetActive (false);
+//		action ();
 	}
+
+//	IEnumerator FadeOut() {
+//
+//	}
 
 	public void ToggleOptionMenu() {
 		if(optionMenu.gameObject.activeSelf) {
