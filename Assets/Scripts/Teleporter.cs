@@ -4,12 +4,14 @@ using System.Collections;
 public class Teleporter : MonoBehaviour {
 
 	public bool activated = false;
-//	public bool requiresPressure = false;
 
 	private ColorComponent color;
+
+	ForceField forceField;
 	
 	private void Start() {
 		color = GetComponent<ColorComponent>();
+		forceField = transform.parent.FindChild ("Force Field").GetComponent<ForceField> ();
 	}
 	
 	public void StepOn() {
@@ -35,10 +37,6 @@ public class Teleporter : MonoBehaviour {
 			}
 		}
 	}
-
-//	public void Teleport() {
-//
-//	}
 	
 	public ColorComponent.pColor GetColor() {
 		return color.currentColor;

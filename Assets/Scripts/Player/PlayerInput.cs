@@ -30,6 +30,7 @@ public class PlayerInput : MonoBehaviour {
 	//player color
 	ColorComponent.pColor color;
 
+	public GameObject grabParticle;
 
 	// Use this for initialization
 	void Start () 
@@ -54,9 +55,9 @@ public class PlayerInput : MonoBehaviour {
 			currentTile = tileManager.GetTileAtPosition(transform.position);
 			transform.position = new Vector3(currentTile.GetNodePos().x, transform.position.y, currentTile.GetNodePos().z);
 		}
+		grabParticle.SetActive(false);
 	}
 	
-	// Update is called once per frame	
 	void Update() 
 	{					
 		// Input
@@ -75,6 +76,7 @@ public class PlayerInput : MonoBehaviour {
 			
 			if(grabbedGameObject != null)
 			{
+				grabParticle.SetActive(true);
 				if(grabbedGameObject.GetComponent<ColorComponent>() != null 
 				   && grabbedGameObject.GetComponent<ColorComponent>().currentColor == color)
 				{
@@ -86,6 +88,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 		else if(Input.GetButtonUp("Submit" + controllerName))
 		{
+			grabParticle.SetActive(false);
 			Debug.Log("A Button Released");
 			isGrabbing = false;
 			grabbedGameObject = null;
