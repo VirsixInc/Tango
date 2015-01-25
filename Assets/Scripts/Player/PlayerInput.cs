@@ -52,14 +52,28 @@ public class PlayerInput : MonoBehaviour {
 
 		if (currentTile == null)
 		{
-			currentTile = tileManager.GetTileAtPosition(transform.position);
-			transform.position = new Vector3(currentTile.GetNodePos().x, transform.position.y, currentTile.GetNodePos().z);
+			// Find nearest x increment in .5s and y increment in 1s
+			Vector3 pos = transform.position;
+			
+			float x = Mathf.Floor(pos.x*2f + 0.5f) / 2f;
+			if( x % 1 != 0.5f ) {
+				//x = ( x < pos.x ) ? x + .5f : x - .5f;
+			}
+			float z = Mathf.Round(pos.z);
+			
+			currentTile = tileManager.GetTileAtPosition(new Vector3(x, 0.5f, z));
+			
+			if(currentTile != null)
+			{
+				currentTile.ReserveNode(true, true);
+				transform.position = currentTile.GetNodePos();
+			}
 		}
 		grabParticle.SetActive(false);
 	}
 	
 	void Update() 
-	{					
+	{
 		// Input
 		if(Input.GetButtonDown("Flashlight" + controllerName))
 		{
