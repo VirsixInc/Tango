@@ -99,28 +99,52 @@ public class PlayerInput : MonoBehaviour {
 				{
 					if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
 					{
+						if(currentDirection == Direction.UP)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(currentDirection);
+
 						nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
 						SetDestinationTile();
+
+						if(currentDirection != Direction.UP)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.UP);
 					}
 					
 					if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
 					{
+						if(currentDirection == Direction.DOWN)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.DOWN);
+
 						nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
 						SetDestinationTile();
+
+						if(currentDirection != Direction.DOWN)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.DOWN);
 					}
 				}
 				else if(currentDirection == Direction.LEFT || currentDirection == Direction.RIGHT)
 				{
 					if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
 					{
+						if(currentDirection == Direction.LEFT)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.LEFT);
+
 						nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
 						SetDestinationTile();
+
+						if(currentDirection != Direction.LEFT)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.LEFT);
 					}
 					
 					if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
 					{
+						if(currentDirection == Direction.RIGHT)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.RIGHT);
+
 						nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
 						SetDestinationTile();
+
+						if(currentDirection != Direction.RIGHT)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.RIGHT);
 					}
 				}
 			}
