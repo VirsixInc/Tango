@@ -8,10 +8,13 @@ public class Teleporter : MonoBehaviour {
 	private ColorComponent color;
 
 	ForceField forceField;
+
+	AudioSource myAudioSource;
 	
 	private void Start() {
 		color = GetComponent<ColorComponent>();
 		forceField = transform.parent.FindChild ("Force Field").GetComponent<ForceField> ();
+		myAudioSource = GetComponent<AudioSource>();
 	}
 	
 	public void StepOn() {
@@ -40,5 +43,9 @@ public class Teleporter : MonoBehaviour {
 	
 	public ColorComponent.pColor GetColor() {
 		return color.currentColor;
+	}
+
+	public void PlayEndOfLevelSound() {
+		myAudioSource.Play();
 	}
 }
