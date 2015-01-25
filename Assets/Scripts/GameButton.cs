@@ -10,20 +10,28 @@ public class GameButton : MonoBehaviour {
 	private Animator animator;
 	private ColorComponent color;
 
+	public ForceField target;
+
 	private void Start() {
 		animator = GetComponent<Animator>();
 		color = GetComponent<ColorComponent>();
+		if(target == null)
+			Debug.Log("Hook up target", this);
 	}
 
 	public void StepOn() {
 		isPressed = true;
 		animator.SetTrigger( "Lower" );
+		if(target != null)
+			target.TurnOff();
 	}
 
 	public void StepOff() {
 		if( isPressed && requiresPressure ) {
 			isPressed = false;
 			animator.SetTrigger( "Raise" );
+			if(target != null)
+				target.TurnOn();
 		}
 	}
 
@@ -49,6 +57,11 @@ public class GameButton : MonoBehaviour {
 		transform.FindChild ("button_main").renderer.material.color = mainColor;
 		transform.FindChild ("buttonBase").renderer.material.SetColor("_EmitColor", emitColor);
 
+	}
+	
+	void OnDrawGizmosSelected() {
+		if(target != null)
+			Gizmos.DrawLine (transform.position, target.transform.position);
 	}
 
 //	private void OnTriggerEnter( Collider col ) {
