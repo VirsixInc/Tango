@@ -11,6 +11,8 @@ public class Tile : MonoBehaviour
 
 	GameObject objectOnTile;
 
+	public TileObject tileObject;
+
 	bool reserved;
 
 	void Awake() 
@@ -23,10 +25,13 @@ public class Tile : MonoBehaviour
 		return reserved;
 	}
 
-	public void ReserveNode( bool reserve )
+	public void ReserveNode( bool reserve, bool isPlayer)
 	{
 		if(passable)
 			reserved = reserve;
+
+		if( !reserve && isPlayer && tileObject != null )
+			tileObject.SteppedOff();
 	}
 
 	public Vector3 GetNodePos()
@@ -38,6 +43,7 @@ public class Tile : MonoBehaviour
 	{
 		if( canBeBridged )
 		{
+			//TODO
 			//kill object
 			passable = true;
 			canBeBridged = false;
@@ -49,5 +55,11 @@ public class Tile : MonoBehaviour
 	public GameObject GetObjectOnTile()
 	{
 		return objectOnTile;
+	}
+
+	public void PlayerEnter(ColorComponent.pColor color)
+	{
+		if( tileObject != null )
+			tileObject.SteppedOn(color);
 	}
 }

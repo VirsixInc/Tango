@@ -38,7 +38,7 @@ public class MovableObject : MonoBehaviour
 	{
 		if(!moving)
 		{
-			nextTile = tileManager.MoveToTile(currentTile, dir);
+			//nextTile = tileManager.MoveToTile(currentTile, dir);
 			//currentDirection = Direction.UP;
 			return SetDestinationTile();
 		}
@@ -50,7 +50,7 @@ public class MovableObject : MonoBehaviour
 	{
 		if (nextTile != null && currentTile != nextTile)
 		{
-			currentTile.ReserveNode(false);
+			currentTile.ReserveNode(false, false);
 			currentTile.SetObject(null);
 			currentTile = nextTile;
 			currentTile.SetObject(this.gameObject);

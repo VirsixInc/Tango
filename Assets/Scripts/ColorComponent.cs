@@ -16,7 +16,7 @@ public class ColorComponent : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		SetMaterialColor();
+		//SetMaterialColor();
 	}
 	
 	// Update is called once per frame
