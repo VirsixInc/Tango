@@ -32,8 +32,8 @@ public class ColorPad : MonoBehaviour
 		{
 			//Switch color with the colliding player's color
 			pColor t_color = color;
-			//color = other.gameObject.GetComponent(Player).color;
-			//other.gameObject.GetComponent(Player).color = t_color;
+			//color = other.gameObject.GetComponentInChildren(ColorComponent).currentColor;
+			//other.gameObject.GetComponentInChildren(ColorComponent).currentColor = t_color;
 		}
 	}
 
@@ -48,8 +48,8 @@ public class ColorPad : MonoBehaviour
 			{
 				//Switch color with the colliding player
 				pColor t_color = color;
-				//color = hit.collider.gameObject.GetComponent(Player).color;
-				//hit.collider.gameObject.GetComponent(Player).color = t_color;
+				//color = hit.collider.gameObject.GetComponentInChildren(ColorComponent).currentColor;
+				//hit.collider.gameObject.GetComponentInChildren(ColorComponent).currentColor = t_color;
 			}
 		}
 	}
@@ -59,15 +59,15 @@ public class ColorPad : MonoBehaviour
 	{
 		/*
 		//If one of the players is grey
-		if(player1.GetComponent(Player).color == pColor.grey)
+		if(player1.GetComponentInChildren(ColorComponent).currentColor == pColor.grey)
 		{
 			//Check player2's color and set the pad color to the other
-			pColor t_color = player2.GetComponent(Player).color;
+			pColor t_color = player2.GetComponentInChildren(ColorComponent).currentColor;
 		}
-		if(player2.GetComponent(Player).color == pColor.grey)
+		if(player2.GetComponentInChildren(ColorComponent).currentColor == pColor.grey)
 		{
 			//Check player1's color and set the pad color to the other
-			pColor t_color = player1.GetComponent(Player).color;
+			pColor t_color = player1.GetComponentInChildren(ColorComponent).currentColor;
 			if(t_color == pColor.red)
 				color = pColor.blue;
 			else if(t_color == pColor.blue)
