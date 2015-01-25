@@ -12,9 +12,6 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager s_instance;
 
-	[System.NonSerialized]
-	public bool player1Finished, player2Finished;
-
 	public GameObject optionMenu;
 	public GameObject pauseMenu;
 	public GameObject mainCanvas; // I'm just gonna bring this along with me because otherwise it loses references to me //Maybe fix?
@@ -101,6 +98,8 @@ public class GameManager : MonoBehaviour {
 
 		if(redTeleportOn && blueTeleportOn) {
 			NextLevel();
+			redTeleportOn = false;
+			blueTeleportOn = false;
 		}
 
 //		print (color.ToString () + " on!");
