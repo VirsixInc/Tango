@@ -38,7 +38,7 @@ public class MovableObject : MonoBehaviour
 	{
 		if(!moving)
 		{
-			nextTile = tileManager.MoveToTile(currentTile, dir);
+			//nextTile = tileManager.MoveToTile(currentTile, dir);
 			//currentDirection = Direction.UP;
 			return SetDestinationTile();
 		}
