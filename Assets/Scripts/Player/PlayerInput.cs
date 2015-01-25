@@ -25,7 +25,7 @@ public class PlayerInput : MonoBehaviour {
 
 	// Grabbing a box
 	private bool isGrabbing;
-
+	public GameObject grabbedGameObject;
 
 	// Use this for initialization
 	void Start () 
@@ -67,17 +67,25 @@ public class PlayerInput : MonoBehaviour {
 			{
 				// Player selects an object.
 				Debug.Log("A Button Pressed");
-				isGrabbing = true;
+
+
+				grabbedGameObject = tileManager.GrabObjectAtTile(currentTile, currentDirection);
+
+				if(grabbedGameObject != null)
+				{
+					Debug.Log("Grabbing box!");
+					isGrabbing = true;
+				}
 			}
 			else if(Input.GetButtonUp("Submit" + controllerName))
 			{
 				Debug.Log("A Button Released");
+				grabbedGameObject = null;
 				isGrabbing = false;
 			}
 
 			if(Input.GetButtonDown("Pause" + controllerName))
 			{
-				// Player selects an object.
 				Debug.Log("Pause Button Pressed");
 			}
 
@@ -91,28 +99,52 @@ public class PlayerInput : MonoBehaviour {
 				{
 					if(!moving && Input.GetAxis("Vertical" + controllerName) > 0)
 					{
+						if(currentDirection == Direction.UP)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(currentDirection);
+
 						nextTile = tileManager.MoveToTile(currentTile, Direction.UP);
 						SetDestinationTile();
+
+						if(currentDirection != Direction.UP)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.UP);
 					}
 					
 					if(!moving && Input.GetAxis("Vertical" + controllerName) < 0)
 					{
+						if(currentDirection == Direction.DOWN)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.DOWN);
+
 						nextTile = tileManager.MoveToTile(currentTile, Direction.DOWN);
 						SetDestinationTile();
+
+						if(currentDirection != Direction.DOWN)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.DOWN);
 					}
 				}
 				else if(currentDirection == Direction.LEFT || currentDirection == Direction.RIGHT)
 				{
 					if(!moving && Input.GetAxis("Horizontal" + controllerName) < 0)
 					{
+						if(currentDirection == Direction.LEFT)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.LEFT);
+
 						nextTile = tileManager.MoveToTile(currentTile, Direction.LEFT);
 						SetDestinationTile();
+
+						if(currentDirection != Direction.LEFT)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.LEFT);
 					}
 					
 					if(!moving && Input.GetAxis("Horizontal" + controllerName) > 0)
 					{
+						if(currentDirection == Direction.RIGHT)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.RIGHT);
+
 						nextTile = tileManager.MoveToTile(currentTile, Direction.RIGHT);
 						SetDestinationTile();
+
+						if(currentDirection != Direction.RIGHT)
+							grabbedGameObject.GetComponent<MovableObject>().MoveObject(Direction.RIGHT);
 					}
 				}
 			}
