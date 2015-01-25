@@ -35,18 +35,18 @@ public class TileObject : MonoBehaviour
 		}
 	}
 
-	public void SteppedOff(ColorComponent.pColor color) {
+	public void SteppedOff() {
 		switch(type)
 		{
 		case Type.BUTTON:
-			ColorComponent.pColor buttonColor = gameObject.GetComponent<GameButton>().GetColor();
-			if( buttonColor == color || buttonColor == ColorComponent.pColor.grey )
-				gameObject.GetComponent<GameButton>().StepOff();
+//			ColorComponent.pColor buttonColor = gameObject.GetComponent<GameButton>().GetColor();
+//			if( buttonColor == color || buttonColor == ColorComponent.pColor.grey )
+			gameObject.GetComponent<GameButton>().StepOff();
 			break;
 		case Type.TELEPORTER:
-			ColorComponent.pColor teleporterColor = gameObject.GetComponent<Teleporter>().GetColor();
-			if(teleporterColor == color)
-				gameObject.GetComponent<Teleporter>().StepOff();
+//			ColorComponent.pColor teleporterColor = gameObject.GetComponent<Teleporter>().GetColor();
+//			if(teleporterColor == color)
+			gameObject.GetComponent<Teleporter>().StepOff();
 			break;
 		case Type.NONE:
 			break;
