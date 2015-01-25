@@ -25,12 +25,12 @@ public class Tile : MonoBehaviour
 		return reserved;
 	}
 
-	public void ReserveNode( bool reserve, bool isPlayer)
+	public void ReserveNode( bool reserve, bool canStepOn)
 	{
 		if(passable)
 			reserved = reserve;
 
-		if( !reserve && isPlayer && tileObject != null )
+		if( !reserve && canStepOn && tileObject != null )
 			tileObject.SteppedOff();
 	}
 
@@ -41,15 +41,18 @@ public class Tile : MonoBehaviour
 
 	public void SetObject( GameObject obj )
 	{
-		if( canBeBridged )
+		if( canBeBridged && obj != null )
 		{
-			//TODO
+			//HACK this is assuming only a box can be pushed on
 			//kill object
+			obj.GetComponent<Box>().FallIntoHole();
+
 			passable = true;
 			canBeBridged = false;
-			//swap texture
+			//TODO swap texture
 		}
-		objectOnTile = obj;
+		else
+			objectOnTile = obj;
 	}
 
 	public GameObject GetObjectOnTile()
