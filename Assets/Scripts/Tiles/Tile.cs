@@ -7,6 +7,8 @@ public class Tile : MonoBehaviour
 
 	public bool passable;
 
+	public bool canBeBridged;
+
 	GameObject objectOnTile;
 
 	bool reserved;
@@ -34,6 +36,13 @@ public class Tile : MonoBehaviour
 
 	public void SetObject( GameObject obj )
 	{
+		if( canBeBridged )
+		{
+			//kill object
+			passable = true;
+			canBeBridged = false;
+			//swap texture
+		}
 		objectOnTile = obj;
 	}
 
