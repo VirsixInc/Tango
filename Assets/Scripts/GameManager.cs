@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour {
 	public static float musicVolume = 8;
 	public static float effectsVolume = 8;
 
+	static bool redTeleportOn = false, blueTeleportOn = false;
+
 	void Awake () {
 		if(s_instance == null) {
 			s_instance = this;
@@ -66,6 +68,30 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 	}
+
+	public static void TeleporterOn(ColorComponent.pColor color) {
+		if(color == ColorComponent.pColor.red) {
+			redTeleportOn = true;
+		} else if(color == ColorComponent.pColor.blue) {
+			blueTeleportOn = true;
+		}
+
+		if(redTeleportOn && blueTeleportOn) {
+			NextLevel();
+		}
+	}
+
+	public static void TeleporterOff(ColorComponent.pColor color) {
+		if(color == ColorComponent.pColor.red) {
+			redTeleportOn = false;
+		} else if(color == ColorComponent.pColor.blue) {
+			blueTeleportOn = false;
+		}
+	}
+
+//	void Teleporter() {
+//
+//	}
 
 	public void TogglePauseMenu() {
 		if(pauseMenu.gameObject.activeSelf) {
