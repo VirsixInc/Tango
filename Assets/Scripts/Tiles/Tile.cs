@@ -25,10 +25,13 @@ public class Tile : MonoBehaviour
 		return reserved;
 	}
 
-	public void ReserveNode( bool reserve )
+	public void ReserveNode( bool reserve, bool isPlayer)
 	{
 		if(passable)
 			reserved = reserve;
+
+		if( !reserve && isPlayer && tileObject != null )
+			tileObject.SteppedOff();
 	}
 
 	public Vector3 GetNodePos()
