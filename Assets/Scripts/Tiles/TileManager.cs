@@ -74,6 +74,7 @@ public class TileManager : MonoBehaviour
 				if(!tiles[targetIndex].IsReserved()) 
 				{
 					tiles[targetIndex].ReserveNode(true, true);
+					tiles[targetIndex].PlayerEnter(color);
 					return tiles[targetIndex];
 				}
 			}
@@ -86,6 +87,7 @@ public class TileManager : MonoBehaviour
 				if(!tiles[index - 1].IsReserved()) 
 				{
 					tiles[index - 1].ReserveNode(true, true);
+					tiles[index - 1].PlayerEnter(color);
 					return tiles[index - 1];
 				}
 			}
@@ -98,13 +100,77 @@ public class TileManager : MonoBehaviour
 				if(!tiles[index + 1].IsReserved()) 
 				{
 					tiles[index + 1].ReserveNode(true, true);
+					tiles[index + 1].PlayerEnter(color);
 					return tiles[index + 1];
 				}
 			}
 			break;
 		default:
 			return null;
-//			break;
+		}
+		return null;
+	}
+
+	public Tile MoveObjectToTile( Tile tile, Direction direction, ColorComponent.pColor color )
+	{
+		int index = GetIndex(tile);
+		int targetIndex = 0;
+		switch(direction) 
+		{
+		case Direction.UP:
+			targetIndex = index - width;
+			
+			if(targetIndex > -1) 
+			{
+				if(!tiles[targetIndex].IsReserved() || tiles[targetIndex].canBeBridged) 
+				{
+					tiles[targetIndex].ReserveNode(true, true);
+					tiles[targetIndex].PlayerEnter(color);
+					return tiles[targetIndex];
+				}
+			}
+			break;
+		case Direction.DOWN:
+			targetIndex = index + width;
+			
+			if(targetIndex < (width * height) ) 
+			{
+				if(!tiles[targetIndex].IsReserved() || tiles[targetIndex].canBeBridged) 
+				{
+					tiles[targetIndex].ReserveNode(true, true);
+					tiles[targetIndex].PlayerEnter(color);
+					return tiles[targetIndex];
+				}
+			}
+			break;
+		case Direction.LEFT:
+			targetIndex = (index % width) - 1;
+			
+			if(targetIndex > -1) 
+			{
+				if(!tiles[index - 1].IsReserved() || tiles[targetIndex].canBeBridged) 
+				{
+					tiles[index - 1].ReserveNode(true, true);
+					tiles[index - 1].PlayerEnter(color);
+					return tiles[index - 1];
+				}
+			}
+			break;
+		case Direction.RIGHT:
+			targetIndex = (index % width) + 1;
+			
+			if(targetIndex < width) 
+			{
+				if(!tiles[index + 1].IsReserved() || tiles[targetIndex].canBeBridged) 
+				{
+					tiles[index + 1].ReserveNode(true, true);
+					tiles[index + 1].PlayerEnter(color);
+					return tiles[index + 1];
+				}
+			}
+			break;
+		default:
+			return null;
 		}
 		return null;
 	}
@@ -118,7 +184,7 @@ public class TileManager : MonoBehaviour
 		case Direction.UP:
 			targetIndex = index - width;
 			
-			if(targetIndex > 0) 
+			if(targetIndex > -1) 
 			{
 				return tiles[targetIndex].GetObjectOnTile();
 			}
@@ -126,7 +192,7 @@ public class TileManager : MonoBehaviour
 		case Direction.DOWN:
 			targetIndex = index + width;
 			
-			if(targetIndex < (width * height) - 1) 
+			if(targetIndex < (width * height)) 
 			{
 				return tiles[targetIndex].GetObjectOnTile();
 			}
@@ -149,7 +215,6 @@ public class TileManager : MonoBehaviour
 			break;
 		default:
 			return null;
-//			break;
 		}
 		return null;
 	}

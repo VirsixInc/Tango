@@ -19,33 +19,12 @@ public class ColorPad : MonoBehaviour
 		SetMaterialColor ();
 	}
 
-	void OnTriggerEnter(Collider other)
+	public void StepOn(ColorComponent.pColor otherColor)
 	{
-		//If collision is a player
-		if(other.gameObject.tag == "Player")
-		{
-			//Switch color with the colliding player's color
-			ColorComponent.pColor t_color = color.currentColor;
-			color.currentColor = other.gameObject.GetComponentInChildren<ColorComponent>().currentColor;
-			other.gameObject.GetComponentInChildren<ColorComponent>().currentColor = t_color;
-		}
-	}
-
-	//Alternate system incase the players don't actually collide with the pad, but are standing above it
-	void MyCollision()
-	{
-		RaycastHit hit;
-		if(Physics.CapsuleCast(transform.position + Vector3.down, transform.position, 1.0f, Vector3.up, out hit, 1.0f))
-		{
-			//If collision is a player
-			if(hit.collider.tag == "Player")
-			{
-				//Switch color with the colliding player
-				ColorComponent.pColor t_color = color.currentColor;
-				color.currentColor = hit.collider.gameObject.GetComponentInChildren<ColorComponent>().currentColor;
-				hit.collider.gameObject.GetComponentInChildren<ColorComponent>().currentColor = t_color;
-			}
-		}
+		//Switch color with the colliding player's color
+		ColorComponent.pColor t_color = color.currentColor;
+		color.currentColor = otherColor;
+		//player.GetComponentInChildren<ColorComponent>().currentColor = t_color
 	}
 
 	//If one of the players is grey, make the pads the color which is not in use between the players
