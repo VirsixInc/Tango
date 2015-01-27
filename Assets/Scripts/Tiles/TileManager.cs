@@ -127,7 +127,7 @@ public class TileManager : MonoBehaviour
 				if(!tiles[targetIndex].IsReserved() || tiles[targetIndex].canBeBridged) 
 				{
 					tiles[targetIndex].ReserveNode(true, true);
-					tiles[targetIndex].PlayerEnter(color);
+//					tiles[targetIndex].PlayerEnter(color);
 					return tiles[targetIndex];
 				}
 			}
@@ -140,7 +140,7 @@ public class TileManager : MonoBehaviour
 				if(!tiles[targetIndex].IsReserved() || tiles[targetIndex].canBeBridged) 
 				{
 					tiles[targetIndex].ReserveNode(true, true);
-					tiles[targetIndex].PlayerEnter(color);
+//					tiles[targetIndex].PlayerEnter(color);
 					return tiles[targetIndex];
 				}
 			}
@@ -153,7 +153,7 @@ public class TileManager : MonoBehaviour
 				if(!tiles[index - 1].IsReserved() || tiles[index - 1].canBeBridged) 
 				{
 					tiles[index - 1].ReserveNode(true, true);
-					tiles[index - 1].PlayerEnter(color);
+//					tiles[index - 1].PlayerEnter(color);
 					return tiles[index - 1];
 				}
 			}
@@ -166,7 +166,7 @@ public class TileManager : MonoBehaviour
 				if(!tiles[index + 1].IsReserved() || tiles[index + 1].canBeBridged) 
 				{
 					tiles[index + 1].ReserveNode(true, true);
-					tiles[index + 1].PlayerEnter(color);
+//					tiles[index + 1].PlayerEnter(color);
 					return tiles[index + 1];
 				}
 			}

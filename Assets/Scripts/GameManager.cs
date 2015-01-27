@@ -4,11 +4,6 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour {
-//	enum State {
-//		Intro, Main
-//	}
-//
-//	State state;
 
 	public static GameManager s_instance;
 
@@ -63,7 +58,10 @@ public class GameManager : MonoBehaviour {
 			myAudioSource.clip = mainMenuMusic;
 			myAudioSource.Play();
 
-			TogglePauseMenu ();
+//			TogglePauseMenu ();
+			if(pauseMenu.activeSelf == true) {
+				TogglePauseMenu();
+			}
 			mainCanvas.SetActive(true);
 			eventSystem.SetSelectedGameObject(mainCanvas.transform.FindChild ("StartGame").gameObject);
 			myAudioSource = GetComponent<AudioSource>();
