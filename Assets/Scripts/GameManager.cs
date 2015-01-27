@@ -42,7 +42,8 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad(sceneTransition);
 		transform.FindChild ("EventSystem").gameObject.SetActive (true);
 
-		eventSystem.SetSelectedGameObject (mainCanvas.transform.FindChild ("StartGame").gameObject);
+		eventSystem.SetSelectedGameObject(mainCanvas.transform.FindChild ("StartGame").gameObject);
+		eventSystem.UpdateModules ();
 		myAudioSource = GetComponent<AudioSource>();
 
 		// Audio
